@@ -296,7 +296,7 @@ namespace TopLearn.Core.Services
             numberSteps = (restOfDivision != 0 ? (countAllUsers / take) + 1 : (countAllUsers / countShow));
 
 
-            IQueryable<User> Users = _context.Users.IgnoreQueryFilters().Where(u=>u.IsDeleted);
+            IQueryable<User> Users = _context.Users.IgnoreQueryFilters().Where(u => u.IsDeleted);
 
             if (!string.IsNullOrEmpty(filterFullName))
             {
@@ -463,6 +463,31 @@ namespace TopLearn.Core.Services
 
             user.SelectedRolesId = _context.RoleUsers.Where(ru => ru.UserId == userId).Select(r => r.RoleId).ToList();
 
+            return user;
+        }
+
+        public bool DeleteUser(int userId)
+        {
+
+            var user = _context.Users.Find(userId);
+            user.IsDeleted = true;
+            return true;
+        }
+
+        public UserInfoesViewModel GetUserInDeleteModeInAdmin(int userId)
+        {
+            var user = _context.Users.Where(u => u.UserId == userId).Select(u => new UserInfoesViewModel()
+            {
+                UserName = u.UserName,
+                FullName = u.FullName,
+                Email = u.Email,
+                Mobile = u.Mobile,
+                RegisterDateTime = u.RegisterDate,
+
+            })
+                .FirstOrDefault();
+
+            user.WalletBalance = _walletService.AccountBalance(user.UserName);
             return user;
         }
 

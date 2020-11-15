@@ -66,6 +66,10 @@ namespace TopLearn.Core.Repositories
 
         EditUserViewModel GetUserInAdminEditModeByUserId(int userId);
 
+        bool DeleteUser(int userId);
+
+        UserInfoesViewModel GetUserInDeleteModeInAdmin(int userId);
+
         #endregion
 
 

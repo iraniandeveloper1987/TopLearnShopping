@@ -8,6 +8,7 @@ namespace TopLearn.Core.DTOs.UserPanel
     public class UserInfoesViewModel
     {
 
+        public int UserId { get; set; }
 
         [Display(Name = "نام و نام خانوادگی")]
         [Required(ErrorMessage = "لطفا فیلد {0} را وارد کنید")]
