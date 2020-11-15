@@ -54,6 +54,8 @@ namespace TopLearn.DAL.Context
 
                 });
 
+            modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
+
 
             base.OnModelCreating(modelBuilder);
 

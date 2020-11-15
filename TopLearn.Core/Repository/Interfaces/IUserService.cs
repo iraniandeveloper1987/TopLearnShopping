@@ -54,6 +54,8 @@ namespace TopLearn.Core.Repositories
 
         List<User> GetUsersForAdmin(out int numberSteps, int pageNUmber = 1, int countShow = 5, string filterFullName = null, string filterUserName = null, string filterEmail = null, string filterMobile = null);
 
+        List<User> GetDeletedUsersForAdmin(out int numberSteps, int pageNUmber = 1, int countShow = 5, string filterFullName = null, string filterUserName = null, string filterEmail = null, string filterMobile = null);
+
         int CreateUserFromAdmin(CreateUserViewModel userModel);
 
         int AddUser(User user);

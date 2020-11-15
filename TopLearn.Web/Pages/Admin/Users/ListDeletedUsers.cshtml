@@ -1,19 +1,21 @@
 ﻿@page
 @using TopLearn.Core.Convertors
-@model TopLearn.Web.Pages.Admin.User.IndexModel
+@model TopLearn.Web.Pages.Admin.Users.ListDeletedUsers
 @{
 }
 
 
 
+
+
 <div class="col-lg-12">
-    <a class="btn btn-success" style="margin-top: 20px; margin-bottom: 10px;font-size: 15px ; width: 100px" href="/Admin/Users/CreateUser"> کاربر جدید </a>
+    <a class="btn btn-success" style="margin-top: 20px; margin-bottom: 10px;font-size: 15px ; width: 100px" href="/Admin/Users/CreateUser"> کاربران حذف شده </a>
 </div>
 
 <div class="col-lg-12">
     <div class="panel panel-default">
         <div class="panel-heading">
-            لیست کاربران
+            لیست کاربران حذف شده
         </div>
         <!-- /.panel-heading -->
         <div class="panel-body">
@@ -26,22 +28,22 @@
                                 <div class="dataTables_length" id="dataTables-example_length">
                                     <label>
                                         نمایش در هر صفحه
-                                        
+
                                         @{
-                                            List<int> SHowInEachPage = new List<int>(){1,5,10,15,20};
+                                            List<int> SHowInEachPage = new List<int>() { 1, 5, 10, 15, 20 };
                                         }
 
 
                                         <select name="countShow" aria-controls="dataTables-example" class="form-control input-sm">
-                                            
+
                                             @foreach (var item in SHowInEachPage)
                                             {
-                                                var selected = (item == (int) ViewData["countShowInPage"]) ? "selected" : "";
+                                                var selected = (item == (int)ViewData["countShowInPage"]) ? "selected" : "";
 
-                                                <!option @selected  value="@item">@item</!option>
+                                                <!option @selected value="@item">@item</!option>
                                             }
-                                           
-                                         
+
+
 
                                         </select>
                                     </label>
@@ -126,7 +128,7 @@
                         <tbody>
 
 
-                            @foreach (var item in Model.AllUsers.Users)
+                            @foreach (var item in Model.AllDeletedUsers.Users)
                             {
 
                                 <tr class="gradeA odd">
@@ -160,35 +162,36 @@
                         </tbody>
                     </table>
                     <div class="row">
-                        
-                        @if (Model.AllUsers.Users.Count > 0)
+
+                        @if (Model.AllDeletedUsers.Users.Count>0)
                         {
                             <div class="col-sm-12 text-center">
                                 <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                     <ul class="pagination">
 
-                                        <li class="paginate_button previous @((Model.AllUsers.NumberPage==1)?"hidden":"")" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
-                                            <a href="/Admin/Users?numberPage=@(Model.AllUsers.NumberPage-1)">قبل</a>
+                                        <li class="paginate_button previous @((Model.AllDeletedUsers.NumberPage==1)?"hidden":"")" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+                                            <a href="/Admin/Users/ListDeletedUsers?numberPage=@(Model.AllDeletedUsers.NumberPage-1)">قبل</a>
                                         </li>
 
-                                        @for (int i = 1; i <= Model.AllUsers.StepsForShow; i++)
+                                        @for (int i = 1; i <= Model.AllDeletedUsers.StepsForShow; i++)
                                         {
-                                            <li class="paginate_button @((Model.AllUsers.NumberPage==i)?"active":"")" aria-controls="dataTables-example" tabindex="0">
-                                                <a href="/Admin/Users?numberPage=@i&countShow=@ViewData["countShowInPage"]">@i</a>
+                                            <li class="paginate_button @((Model.AllDeletedUsers.NumberPage==i)?"active":"")" aria-controls="dataTables-example" tabindex="0">
+                                                <a href="/Admin/Users/ListDeletedUsers?numberPage=@i&countShow=@ViewData["countShowInPage"]">@i</a>
                                             </li>
                                         }
 
 
-                                        <li class="paginate_button next  @((Model.AllUsers.StepsForShow==Model.AllUsers.NumberPage)?"hidden":"")" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
-                                            <a href="/Admin/Users?numberPage=@(Model.AllUsers.NumberPage+1)">بعد</a>
+                                        <li class="paginate_button next  @((Model.AllDeletedUsers.StepsForShow==Model.AllDeletedUsers.NumberPage)?"hidden":"")" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
+                                            <a href="/Admin/Users/ListDeletedUsers?numberPage=@(Model.AllDeletedUsers.NumberPage+1)">بعد</a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         }
 
-                      
+
                     </div>
+
                 </div>
             </div>
             <!-- /.table-responsive -->

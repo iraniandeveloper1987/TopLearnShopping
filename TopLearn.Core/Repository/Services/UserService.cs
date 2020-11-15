@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using TopLearn.Core.Code_Generator;
 using TopLearn.Core.Convertors;
@@ -257,6 +258,45 @@ namespace TopLearn.Core.Services
 
 
             IQueryable<User> Users = _context.Users;
+
+            if (!string.IsNullOrEmpty(filterFullName))
+            {
+                Users = Users.Where(u => u.FullName.Contains(filterFullName));
+            }
+
+            if (!string.IsNullOrEmpty(filterUserName))
+            {
+                Users = Users.Where(u => u.UserName.Contains(filterUserName));
+            }
+
+            if (!string.IsNullOrEmpty(filterEmail))
+            {
+                Users = Users.Where(u => u.Email.Contains(filterEmail.EmailFixed()));
+            }
+
+            if (!string.IsNullOrEmpty(filterMobile))
+            {
+                Users = Users.Where(u => u.Mobile.Contains(filterMobile));
+            }
+
+            return Users.OrderByDescending(u => u.RegisterDate).Skip(skip).Take(take).ToList();
+        }
+
+        public List<User> GetDeletedUsersForAdmin(out int numberSteps, int pageNUmber = 1, int countShow = 5, string filterFullName = null,
+            string filterUserName = null, string filterEmail = null, string filterMobile = null)
+        {
+            var take = countShow;
+
+            var skip = (pageNUmber - 1) * take;
+
+            var countAllUsers = _context.Users.Count();
+
+            var restOfDivision = countAllUsers % take;
+
+            numberSteps = (restOfDivision != 0 ? (countAllUsers / take) + 1 : (countAllUsers / countShow));
+
+
+            IQueryable<User> Users = _context.Users.IgnoreQueryFilters().Where(u=>u.IsDeleted);
 
             if (!string.IsNullOrEmpty(filterFullName))
             {
