@@ -1,0 +1,180 @@
+﻿
+@{
+    ViewData["Title"] = $"پنل کاربری {User.Claims.FirstOrDefault(c => c.Type == "FullName").Value}";
+}
+
+
+@using TopLearn.Core.Convertors
+@using TopLearn.Core.Enums
+
+@model TopLearn.Core.DTOs.Wallet.ManageWalletViewModel
+
+
+
+<div class="container">
+
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">تاپ لرن</a></li>
+            <li class="breadcrumb-item active" aria-current="page">مدیریت کیف پول شما</li>
+        </ul>
+    </nav>
+</div>
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <partial name="_SideBarUserPanel" />
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <section class="user-account-content">
+                        <header><h1>مدیریت کیف پول شما</h1></header>
+
+
+                        @if (ViewData["MessageField"] != null)
+                        {
+                            <div class="alert-danger">
+                                <p class="help-block">
+                                    @ViewData["MessageField"]
+                                </p>
+                            </div>
+                        }
+
+                        <div class="inner form-layer">
+                            <form asp-action="Index" asp-controller="Wallet" method="post">
+
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-8 col-xs-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon" id="fullname"><i class="zmdi zmdi-balance-wallet"></i></span>
+                                            <input asp-for="ChargeWallet.Amount" type="text" class="form-control" placeholder="مبلغ شارژ به تومان" aria-describedby="fullname">
+                                            <span asp-validation-for="ChargeWallet.Amount" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-7 col-sm-8 col-xs-12">
+                                        <input type="submit" class="btn btn-success" value="شارژ کیف پول" />
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </section>
+
+                    <hr />
+                    <div class="text-center">
+                        <h1 style="font-size: 28px">تراکنش های شما</h1>
+                    </div>
+                    <br />
+                    <table class="table table-bordered table-hover text-center">
+
+                        <tr>
+                            <th class="text-center">
+                                مبلغ
+                            </th>
+
+                            <th class="text-center">
+
+                                تاریخ
+                            </th>
+
+                            <th class="text-center">
+                                شرح
+
+                            </th>
+
+                            <th class="text-center">
+                                نوع تراکنش
+                            </th>
+
+                        </tr>
+
+                        @foreach (var item in Model.wallets)
+                        {
+                            <tr>
+                                <td>
+
+                                    @item.Amount.ToString("#,0 تومان")
+                                </td>
+
+                                <td>
+                                    @item.DateTime.MiladiToShamsi()
+                                </td>
+
+                                <td>
+                                    @item.Description
+                                </td>
+
+                                <td>
+                                    @if (item.WalletType == (int)TransactionType.Deposit)
+                                    {
+                                        <span class="text-success" style="font-size: 15px">
+                                            واریز
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-danger" style="font-size: 15px">
+                                            برداشت
+                                        </span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+
+
+                    @if (ViewData["numberSteps"] != null && (int) ViewData["numberSteps"] > 0)
+                    {
+                        <nav aria-label="..." class="text-center">
+                            <ul class="pagination">
+                                <li class="page-item @(((int)ViewData["currentPage"]==1?"hidden":""))">
+                                    <a class="page-link" href="/UserPanel/Wallet/@((int)ViewData["currentPage"]-1)" tabindex="-1">قبلی</a>
+                                </li>
+                                @for (int i = 1; i <= (int)ViewData["numberSteps"]; i++)
+                                {
+                                    var active = (i == (int)ViewData["currentPage"] ? "active" : "");
+
+                                    <li class="page-item @active">
+                                        <a class="page-link" href="/UserPanel/Wallet/@i">@i <span class="sr-only">(current)</span></a>
+                                    </li>
+                                }
+
+                                <li class="page-item  @(((int)ViewData["numberSteps"]==(int)ViewData["currentPage"]?"hidden":""))">
+                                    <a class="page-link" href="/UserPanel/Wallet/@((int)ViewData["currentPage"]+1)">بعدی</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    }
+                      
+
+                    <div class="text-center" style="margin-top: 65px">
+                        <p style="font-size: 20px">
+                            <i class="zmdi zmdi-balance-wallet text-danger"></i>
+                            <span>موجودی کیف پول شما : </span>
+                            <span class="text-success">@Model.AccountBalance.ToString("#,0 تومان")</span>
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+
+@*@section Scripts
+    {
+        @{
+            await Html.PartialAsync("_ValidationScriptsPartial");
+        }
+    }*@
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

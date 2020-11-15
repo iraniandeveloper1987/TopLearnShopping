@@ -1,0 +1,140 @@
+﻿@page
+@using TopLearn.DAL.Entities
+@model TopLearn.Web.Pages.Admin.Users.CreateUserModel
+
+@{
+    List<Role> roles = ViewData["Roles"] as List<Role>;
+
+}
+
+
+
+
+
+<div class="row" style="margin-top: 30px">
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div class="col-md-8 col-lg-8 col-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    مشخصات کاربر
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>نام و نام خانوادگی</label>
+                    <input asp-for="CreateUser.FullName" class="form-control">
+                    <span class="text-danger" asp-validation-for="CreateUser.FullName"></span>
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>نام کاربری</label>
+                    <input asp-for="CreateUser.UserName" class="form-control">
+                    <span class="text-danger" asp-validation-for="CreateUser.UserName"></span>
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>ایمیل</label>
+                    <input asp-for="CreateUser.Email" class="form-control">
+                    <span class="text-danger" asp-validation-for="CreateUser.Email"></span>
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>موبایل</label>
+                    <input asp-for="CreateUser.Mobile" class="form-control">
+                    <span class="text-danger" asp-validation-for="CreateUser.Mobile"></span>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>کلمه عبور</label>
+                    <input asp-for="CreateUser.Password" class="form-control">
+                    <span class="text-danger" asp-validation-for="CreateUser.Password"></span>
+                </div>
+
+
+                <div class="form-group" style="margin: 10px">
+
+                    <label>نقش کاربران</label>
+                    @foreach (var item in roles)
+                    {
+                        <div class="checkbox">
+                            <label>
+                                <input name="SelectedRoleIds" type="checkbox" value="@item.RoleId"> @item.Description
+                            </label>
+                        </div>
+                    }
+
+
+
+                </div>
+
+
+                <div class="form-group" style="margin: 10px">
+
+                    <input class="btn btn-success" value="ذخیره اطلاعات" type="submit">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    عکس پروفایل
+                </div>
+                <div class="panel-body">
+                    <img class="thumbnail text-center" id=UserAvatar src="/images/Users/UserAvatar/Default.jpg" style="height: 430px;" />
+                </div>
+                <div class="panel-footer">
+                    <input class="form-control" type="file" name="CreateUser.UserAvatar" id="CreateUser_UserAvatar" />
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts
+{
+
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#UserAvatar').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#CreateUser_UserAvatar").change(function () {
+            readURL(this);
+        });
+    </script>
+
+
+    <script src="~/Admin/js/bootstrap-notify.min.js"></script>
+
+
+    @if ((ViewData["IsSuccess"] != null))
+    {
+        <script>
+            $.notify({
+                // options
+                message: 'کاربر جدید با موفقیت ثبت شد'
+            }, {
+                // settings
+                type: 'success',
+                placement: {
+                    from: "top",
+                    align: "center"
+                },
+            });
+        </script>
+    }
+
+
+ss}

@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "فعال سازی کاربر";
+}
+
+@using TopLearn.Core.DTOs.AccountViewModels
+
+@model ActiveViewModel
+
+
+
+<div class="container">
+
+
+
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">تاپ لرن</a></li>
+            <li class="breadcrumb-item active" aria-current="page">فعال سازی کاربر</li>
+        </ul>
+    </nav>
+</div>
+
+
+
+
+@if (ViewData["SuccessMesssage"] != null)
+{
+    <div id="SuccessMessage" class="alert alert-success text-center">
+
+        <p class="help-block">
+
+            @ViewData["SuccessMesssage"]
+
+        </p>
+    </div>
+
+    <script>
+     
+        // Your delay in milliseconds
+        var delay = 3000;
+        setTimeout(function () { window.location = "https://localhost:5001/Login"; }, delay);
+    </script>
+
+}
+else
+{
+    <div class="alert-success text-center">
+
+        <h4> @ViewData["Message"]</h4>
+
+    </div>
+}
+
+
+<main class="client-page">
+    <div class="container-content">
+
+        <header>
+            <h2>فعالسازی اکانت </h2></header>
+
+        <div class="form-layer">
+
+            <form asp-action="ActiveUser" asp-controller="Account" method="post">
+
+                <div class="input-group">
+                    <span class="input-group-addon" id="ActiveCode"><i class="zmdi zmdi-notifications-active"></i></span>
+                    <input asp-for="ActiveCode" type="text" class="form-control" placeholder="کد فعال سازی" aria-describedby="ActiveCode">
+                </div>
+
+                <div asp-validation-summary="All" class="text-danger"> </div>
+                <br/>
+                <input class="btn btn-success" type="submit" value="فعال سازی حساب"/>
+
+            </form>
+        </div>
+
+    </div>
+</main>
+

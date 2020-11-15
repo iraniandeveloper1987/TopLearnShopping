@@ -1,0 +1,82 @@
+﻿
+
+@{
+    ViewData["Title"] = $"پنل کاربری {User.Claims.FirstOrDefault(c => c.Type == "FullName").Value}";
+}
+
+
+@{
+    ViewData["Title"] = "OnlinePayWallet";
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">تاپ لرن</a></li>
+            <li class="breadcrumb-item active" aria-current="page">وضعیت پرداخت </li>
+        </ul>
+    </nav>
+</div>
+
+
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <partial name="_SideBarUserPanel" />
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <section class="user-account-content">
+                        <header><h1>وضعیت پرداخت</h1></header>
+                        <div class="inner">
+                            <div class="account-information">
+                                @if (ViewData["FieldPayMessage"] != null)
+                                {
+                                    <div class="alert alert-danger text-center"  style="font-size: 25px">
+                                        <p class="help-block">
+                                            @ViewData["FieldPayMessage"]
+                                        </p>
+                                       
+                                    </div>
+
+
+                                }
+                                else if (ViewData["SuccessMessage"] != null)
+                                {
+                                    <div class="alert alert-success text-center" style="font-size: 25px">
+                                        <p class="help-block">
+                                            @ViewData["SuccessMessage"]
+                                        </p>
+
+                                        <p>
+                                            کد پیگیری شما : @ViewData["TrackingCode"]
+                                        </p>
+
+                                    </div>
+                                }
+                                
+                                
+                                <script>
+                                    // Your delay in milliseconds
+               
+                                    var delay = 5000;
+                                    var functime = () => {
+                                        setTimeout(function () { window.location = "https://localhost:5001/UserPanel/Wallet" }, delay);
+                                    }
+
+              
+                                    functime();
+               
+
+                                </script>
+                                
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+

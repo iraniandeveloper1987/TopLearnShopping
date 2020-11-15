@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20201102145051_Inital_db.cs" />
+    <Compile Remove="Migrations\20201102145051_Inital_db.Designer.cs" />
+    <Compile Remove="Migrations\20201102145450_AddSomeEntities.cs" />
+    <Compile Remove="Migrations\20201102145450_AddSomeEntities.Designer.cs" />
+    <Compile Remove="Migrations\20201102150335_Initial_db.cs" />
+    <Compile Remove="Migrations\20201102150335_Initial_db.Designer.cs" />
+    <Compile Remove="Migrations\20201102170710_Set_MaxLenfth_Avata_ActivCod.cs" />
+    <Compile Remove="Migrations\20201102170710_Set_MaxLenfth_Avata_ActivCod.Designer.cs" />
+    <Compile Remove="Migrations\20201102170942_Set_MaxLength.cs" />
+    <Compile Remove="Migrations\20201102170942_Set_MaxLength.Designer.cs" />
+    <Compile Remove="Migrations\20201103093018_Requierd-FullName_User.cs" />
+    <Compile Remove="Migrations\20201103093018_Requierd-FullName_User.Designer.cs" />
+    <Compile Remove="Migrations\20201103145438_Initial_db.cs" />
+    <Compile Remove="Migrations\20201103145438_Initial_db.Designer.cs" />
+    <Compile Remove="Migrations\20201106172701_Mig-InitDb.cs" />
+    <Compile Remove="Migrations\20201106172701_Mig-InitDb.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
