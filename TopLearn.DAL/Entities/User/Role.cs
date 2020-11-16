@@ -16,12 +16,13 @@ namespace TopLearn.DAL.Entities
         [Key]
         public int RoleId { get; set; }
 
-        [Display(Name = "نام نقش")]
+        [Display(Name = "نام نقش به لاتین ")]
         [Required(ErrorMessage = "لطفا فیلد {0} را وارد کنید")]
         [MaxLength(50, ErrorMessage = "فیلد {0} نمی تواند بیشتر از {1} کاراکترباشد")]
         public string RoleName { get; set; }
 
-        [Display(Name = "توضیحات نقش")]
+        [Display(Name = "نام نقش ")]
+        [Required(ErrorMessage = "لطفا فیلد {0} را وارد کنید")]
         [MaxLength(100, ErrorMessage = "فیلد {0} نمی تواند بیشتر از {1} کاراکترباشد")]
         public string Description { get; set; }
 

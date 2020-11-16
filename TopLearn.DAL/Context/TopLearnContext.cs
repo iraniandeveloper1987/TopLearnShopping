@@ -54,7 +54,16 @@ namespace TopLearn.DAL.Context
 
                 });
 
+
+            #region QueryFilter 
+
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<Role>().HasQueryFilter(r => !r.IsDeleted);
+
+            #endregion
+
+
 
 
             base.OnModelCreating(modelBuilder);

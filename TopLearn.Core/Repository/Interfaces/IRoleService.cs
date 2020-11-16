@@ -8,6 +8,10 @@ namespace TopLearn.Core.Repository.Interfaces
 {
     public interface IRoleService : IBaseService<Role>
     {
+        bool DeleteRoleByRoleID(int roleId);
+
+        List<Role> GetDeleteRoles();
 
     }
+
 }

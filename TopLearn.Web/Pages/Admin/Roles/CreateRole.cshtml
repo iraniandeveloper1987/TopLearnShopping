@@ -1,0 +1,84 @@
+﻿@page
+
+@model TopLearn.Web.Pages.Admin.Roles.CreateRoleModel
+@{
+}
+
+
+
+
+<div class="row" style="margin-top: 30px">
+
+    <form method="post">
+
+        <div class="col-md-8 col-lg-8 col-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    تعریف نقش
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>عنوان نقض</label>
+                    <input asp-for="Role.Description" class="form-control">
+                    <span class="text-danger" asp-validation-for="Role.Description"></span>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>نام نقش به لاتین</label>
+                    <input asp-for="Role.RoleName" class="form-control">
+                    <span class="text-danger" asp-validation-for="Role.RoleName"></span>
+                </div>
+
+
+                <div class="form-group" style="margin: 10px">
+
+                    <input class="btn btn-success" value="ذخیره اطلاعات" type="submit">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    دسترسی ها
+                </div>
+                <div class="panel-body">
+
+                </div>
+                <div class="panel-footer">
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts
+{
+
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/Admin/js/bootstrap-notify.min.js"></script>
+
+
+    @if ((ViewData["IsSuccess"] != null))
+    {
+        <script>
+            $.notify({
+                // options
+                message: 'نقش جدید با موفقیت ثبت شد'
+            }, {
+                // settings
+                type: 'success',
+                placement: {
+                    from: "top",
+                    align: "center"
+                },
+            });
+        </script>
+    }
+
+
+}
