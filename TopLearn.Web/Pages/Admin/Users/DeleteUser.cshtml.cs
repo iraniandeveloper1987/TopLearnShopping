@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopLearn.Core.DTOs.UserPanel;
-using TopLearn.Core.Repositories;
+using TopLearn.Core.Repository.Interfaces.User;
 
 namespace TopLearn.Web.Pages.Admin.Users
 {

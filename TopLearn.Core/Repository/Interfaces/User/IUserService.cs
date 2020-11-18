@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TopLearn.Core.DTOs.Account;
-using TopLearn.Core.DTOs.Admin;
+﻿using System.Collections.Generic;
 using TopLearn.Core.DTOs.Admin.User;
 using TopLearn.Core.DTOs.UserPanel;
 using TopLearn.Core.Services.Interfaces.Base;
-using TopLearn.DAL.Entities;
 
-namespace TopLearn.Core.Repositories
+namespace TopLearn.Core.Repository.Interfaces.User
 {
-    public interface IUserService : IBaseService<User>
+    public interface IUserService : IBaseService<DAL.Entities.User>
     {
 
         #region User Account
@@ -21,17 +16,17 @@ namespace TopLearn.Core.Repositories
         bool IsExistActiveCode(string activecode);
 
 
-        User GetUserByUserName(string username);
+        DAL.Entities.User GetUserByUserName(string username);
 
-        User GetUserByEmail(string email);
+        DAL.Entities.User GetUserByEmail(string email);
 
-        User GetUserByMobile(string mobile);
+        DAL.Entities.User GetUserByMobile(string mobile);
 
-        User GetUserByActiveCode(string activeCode);
+        DAL.Entities.User GetUserByActiveCode(string activeCode);
 
-        User LoginByMobile(string mobile, string password);
+        DAL.Entities.User LoginByMobile(string mobile, string password);
 
-        User LoginByEmail(string email, string password);
+        DAL.Entities.User LoginByEmail(string email, string password);
 
         int GetUserIdByUserName(string username);
         #endregion
@@ -52,17 +47,17 @@ namespace TopLearn.Core.Repositories
 
         #region Admin
 
-        List<User> GetUsersForAdmin(out int numberSteps, int pageNUmber = 1, int countShow = 5, string filterFullName = null, string filterUserName = null, string filterEmail = null, string filterMobile = null);
+        List<DAL.Entities.User> GetUsersForAdmin(out int numberSteps, int pageNUmber = 1, int countShow = 5, string filterFullName = null, string filterUserName = null, string filterEmail = null, string filterMobile = null);
 
-        List<User> GetDeletedUsersForAdmin(out int numberSteps, int pageNUmber = 1, int countShow = 5, string filterFullName = null, string filterUserName = null, string filterEmail = null, string filterMobile = null);
+        List<DAL.Entities.User> GetDeletedUsersForAdmin(out int numberSteps, int pageNUmber = 1, int countShow = 5, string filterFullName = null, string filterUserName = null, string filterEmail = null, string filterMobile = null);
 
         int CreateUserFromAdmin(CreateUserViewModel userModel);
 
-        int AddUser(User user);
+        int AddUser(DAL.Entities.User user);
 
         bool EdithUserFromAdmin(EditUserViewModel user);
 
-        User GetUserByUserId(int userId);
+        DAL.Entities.User GetUserByUserId(int userId);
 
         EditUserViewModel GetUserInAdminEditModeByUserId(int userId);
 

@@ -13,9 +13,15 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TopLearn.Core.messaging.Interfaces;
 using TopLearn.Core.messaging.Services;
-using TopLearn.Core.Repositories;
 using TopLearn.Core.Repository.Interfaces;
+using TopLearn.Core.Repository.Interfaces.FilterAttributes;
+using TopLearn.Core.Repository.Interfaces.Permission;
+using TopLearn.Core.Repository.Interfaces.Role;
+using TopLearn.Core.Repository.Interfaces.User;
+using TopLearn.Core.Repository.Interfaces.Wallet;
 using TopLearn.Core.Repository.Services;
+using TopLearn.Core.Repository.Services.FilterAttributes;
+using TopLearn.Core.Repository.Services.Permission;
 using TopLearn.Core.Services;
 using TopLearn.DAL.Context;
 
@@ -62,7 +68,11 @@ namespace TopLearn.Web
 
             services.AddScoped<IRoleService, RoleService>();
 
+            services.AddScoped<IPermissionService, PermissionService>();
 
+            services.AddScoped<IRolePermissionService, RolePermissionService>();
+
+            services.AddScoped<IFilterAttributeService, FilterAttributesService>();
 
             #endregion
 

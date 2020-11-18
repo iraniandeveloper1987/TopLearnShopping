@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using TopLearn.DAL.Entities;
+using TopLearn.DAL.Entities.Permissions;
 
 namespace TopLearn.DAL.Context
 {
@@ -18,10 +19,18 @@ namespace TopLearn.DAL.Context
         #region DbSet
 
         public DbSet<User> Users { get; set; }
+
         public DbSet<RoleUser> RoleUsers { get; set; }
+
         public DbSet<Role> Roles { get; set; }
+
         public DbSet<WalletType> WalletTypes { get; set; }
+
         public DbSet<Wallet> Wallets { get; set; }
+
+        public DbSet<Permission> Permissions { get; set; }
+
+        public DbSet<RolePermission> RolePermissions { get; set; }
 
 
         #endregion

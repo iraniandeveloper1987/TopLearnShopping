@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using TopLearn.Core.Repository.Interfaces;
+using TopLearn.Core.Repository.Interfaces.Role;
 using TopLearn.Core.Services.ServiceBase;
 using TopLearn.DAL.Context;
 using TopLearn.DAL.Entities;
@@ -31,6 +32,13 @@ namespace TopLearn.Core.Repository.Services
         public List<Role> GetDeleteRoles()
         {
             return _context.Roles.IgnoreQueryFilters().Where(r => r.IsDeleted).ToList();
+        }
+
+        public int AddRole(Role role)
+        {
+            Add(role);
+            Save();
+            return role.RoleId;
         }
     }
 }

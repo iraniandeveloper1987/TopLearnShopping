@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using TopLearn.DAL.Entities.Permissions;
 
 namespace TopLearn.DAL.Entities
 {
@@ -11,6 +12,7 @@ namespace TopLearn.DAL.Entities
         public Role()
         {
             RoleUsers = new List<RoleUser>();
+            RolePermissions = new List<RolePermission>();
         }
 
         [Key]
@@ -30,7 +32,9 @@ namespace TopLearn.DAL.Entities
 
         #region Navigation Properties
 
-        public virtual List<RoleUser>  RoleUsers { get; set; }
+        public virtual List<RoleUser> RoleUsers { get; set; }
+
+        public virtual List<RolePermission> RolePermissions { get; set; }
 
         #endregion
     }

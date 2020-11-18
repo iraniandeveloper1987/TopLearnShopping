@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TopLearn.Core.Services.Interfaces.Base;
 using TopLearn.DAL.Entities;
 
-namespace TopLearn.Core.Repositories
+namespace TopLearn.Core.Repository.Interfaces.Role
 {
     public interface IRoleUserService : IBaseService<RoleUser>
     {

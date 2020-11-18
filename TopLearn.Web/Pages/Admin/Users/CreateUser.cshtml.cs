@@ -7,17 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopLearn.Core.DTOs.Admin;
 using TopLearn.Core.DTOs.Admin.User;
-using TopLearn.Core.Repositories;
 using TopLearn.Core.Repository.Interfaces;
+using TopLearn.Core.Repository.Interfaces.Role;
+using TopLearn.Core.Repository.Interfaces.User;
 using TopLearn.DAL.Entities;
 
 namespace TopLearn.Web.Pages.Admin.Users
 {
     public class CreateUserModel : PageModel
     {
-        private IUserService _userService;
-        private IRoleUserService _roleUserService;
-        private IRoleService _roleService;
+        private readonly IUserService _userService;
+        private readonly IRoleUserService _roleUserService;
+        private readonly IRoleService _roleService;
 
         public CreateUserModel(IUserService userService, IRoleUserService roleUserService, IRoleService roleService)
         {

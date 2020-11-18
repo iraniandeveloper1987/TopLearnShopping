@@ -1,6 +1,10 @@
 ﻿@page "{roleId}"
+@using TopLearn.DAL.Entities.Permissions
 @model TopLearn.Web.Pages.Admin.Roles.EditRoleModel
 @{
+    var selectedPermissions = ViewData["selectedPermissions"] as List<int>;
+    var permissions = ViewData["permissions"] as List<Permission>;
+  
 }
 
 
@@ -43,6 +47,58 @@
                     دسترسی ها
                 </div>
                 <div class="panel-body">
+
+                    <ul>
+                        @foreach (var mainNode in permissions.Where(p => p.ParentId == null))
+                        {
+                            var CheckedState1 = (selectedPermissions.Any(permissionid=> permissionid == mainNode.PermissionId) ? "checked" : "");
+                            <li>
+                                <input @CheckedState1 type="checkbox" name="selectedPermissions" value="@mainNode.PermissionId" /> <b class="text-success">@mainNode.PermissionTitle</b>
+
+                                @if (permissions.Any(p => p.ParentId == mainNode.PermissionId))
+                                {
+
+                                    <ul>
+
+                                        @foreach (var subNode1 in permissions.Where(p => p.ParentId == mainNode.PermissionId).ToList())
+                                        {
+
+                                            var CheckedState2 = (selectedPermissions.Any(permissionid=> permissionid == subNode1.PermissionId) ? "checked" : "");
+
+                                            <li>
+                                      
+                                                <input  @CheckedState2 type="checkbox" name="selectedPermissions" value="@subNode1.PermissionId" /> <b class="text-primary"> @subNode1.PermissionTitle</b>
+
+                                                @if (permissions.Any(p => p.ParentId == subNode1.PermissionId))
+                                                {
+                                                    <ul>
+
+                                                        @foreach (var subNode2 in permissions.Where(p => p.ParentId == subNode1.PermissionId).ToList())
+                                                        {
+                                                            var CheckedState3 = (selectedPermissions.Any(permissionid=> permissionid == subNode2.PermissionId) ? "checked" : "");
+                                                            <li>
+                                                                <input @CheckedState3 type="checkbox" name="selectedPermissions" value="@subNode2.PermissionId" /> <b class="text-danger"> @subNode2.PermissionTitle</b>
+                                                            </li>
+                                                        }
+
+
+                                                    </ul>
+
+                                                }
+
+                                            </li>
+                                            }
+
+                                    </ul>
+
+                                }
+
+
+                            </li>
+
+                        }
+                    </ul>
+
 
                 </div>
                 <div class="panel-footer">

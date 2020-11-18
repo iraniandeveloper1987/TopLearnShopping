@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TopLearn.Core.Convertors;
 using TopLearn.Core.DTOs.UserPanel;
-using TopLearn.Core.Repositories;
+using TopLearn.Core.Repository.Interfaces.User;
 using TopLearn.Core.Security;
 
 namespace TopLearn.Web.Areas.UserPanel.Controllers

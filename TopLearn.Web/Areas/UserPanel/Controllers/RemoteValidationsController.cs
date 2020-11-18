@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TopLearn.Core.Repositories;
+using TopLearn.Core.Repository.Interfaces.User;
 using TopLearn.Core.Security;
 
 namespace TopLearn.Web.Areas.UserPanel.Controllers

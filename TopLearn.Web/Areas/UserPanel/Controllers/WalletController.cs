@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using TopLearn.Core.DTOs.Wallet;
 using TopLearn.Core.Repository.Interfaces;
+using TopLearn.Core.Repository.Interfaces.Wallet;
 
 namespace TopLearn.Web.Areas.UserPanel.Controllers
 {

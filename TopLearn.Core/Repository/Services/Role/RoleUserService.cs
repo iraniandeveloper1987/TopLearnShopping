@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using TopLearn.Core.Repositories;
+using TopLearn.Core.Repository.Interfaces.Role;
 using TopLearn.Core.Services.ServiceBase;
 using TopLearn.DAL.Context;
 using TopLearn.DAL.Entities;

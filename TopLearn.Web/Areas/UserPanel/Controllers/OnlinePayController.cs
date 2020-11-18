@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TopLearn.Core.Repository.Interfaces;
+using TopLearn.Core.Repository.Interfaces.Wallet;
 
 namespace TopLearn.Web.Areas.UserPanel.Controllers
 {

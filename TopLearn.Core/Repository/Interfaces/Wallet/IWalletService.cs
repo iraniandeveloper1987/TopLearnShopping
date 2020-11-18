@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TopLearn.Core.DTOs.Wallet;
 using TopLearn.Core.Services.Interfaces.Base;
-using TopLearn.DAL.Entities;
 
-namespace TopLearn.Core.Repository.Interfaces
+namespace TopLearn.Core.Repository.Interfaces.Wallet
 {
-    public interface IWalletService : IBaseService<Wallet>
+    public interface IWalletService : IBaseService<DAL.Entities.Wallet>
     {
 
         int AccountBalance(string username);
 
         int GetUserIdByUserName(string username);
 
-        Wallet GetWalletByWalletId(int walletId);
+        DAL.Entities.Wallet GetWalletByWalletId(int walletId);
 
-        User GetUserByWalletId(int walletId);
+        DAL.Entities.User GetUserByWalletId(int walletId);
 
-        int AddWallet(Wallet wallet);
+        int AddWallet(DAL.Entities.Wallet wallet);
 
         List<WalletViewModel> GetAllWalletByUserName(string username);
 

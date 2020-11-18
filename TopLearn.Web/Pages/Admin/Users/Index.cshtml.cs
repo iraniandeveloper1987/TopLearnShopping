@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopLearn.Core.DTOs.Admin;
 using TopLearn.Core.DTOs.Admin.User;
-using TopLearn.Core.Repositories;
+using TopLearn.Core.Enums;
+using TopLearn.Core.FilterAttributes;
+using TopLearn.Core.Repository.Interfaces.User;
 
 namespace TopLearn.Web.Pages.Admin.User
 {
+
+    [CheckPermissionAttribute((int)PermissionEnum.UserManagement)]
     public class IndexModel : PageModel
     {
 
@@ -39,10 +43,10 @@ namespace TopLearn.Web.Pages.Admin.User
                 Users = _userService.GetUsersForAdmin(out _stepsShow, numberPage, countShowInPage, fullName, userName, email, mobile),
                 StepsForShow = _stepsShow
             };
-            
+
         }
 
-        
+
 
     }
 }
