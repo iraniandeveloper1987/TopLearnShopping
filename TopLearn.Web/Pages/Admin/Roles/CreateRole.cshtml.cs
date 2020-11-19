@@ -5,6 +5,8 @@ using System.Security;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using TopLearn.Core.Enums;
+using TopLearn.Core.FilterAttributes;
 using TopLearn.Core.Repository.Interfaces;
 using TopLearn.Core.Repository.Interfaces.Permission;
 using TopLearn.Core.Repository.Interfaces.Role;
@@ -13,6 +15,7 @@ using TopLearn.DAL.Entities.Permissions;
 
 namespace TopLearn.Web.Pages.Admin.Roles
 {
+    [CheckPermission((int)PermissionEnum.AddRole)]
     public class CreateRoleModel : PageModel
     {
         private readonly IRoleService _roleService;

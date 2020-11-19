@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopLearn.Core.DTOs.Admin;
 using TopLearn.Core.DTOs.Admin.User;
+using TopLearn.Core.Enums;
+using TopLearn.Core.FilterAttributes;
 using TopLearn.Core.Repository.Interfaces;
 using TopLearn.Core.Repository.Interfaces.Role;
 using TopLearn.Core.Repository.Interfaces.User;
@@ -14,6 +16,7 @@ using TopLearn.DAL.Entities;
 
 namespace TopLearn.Web.Pages.Admin.Users
 {
+    [CheckPermission((int)PermissionEnum.AddUser)]
     public class CreateUserModel : PageModel
     {
         private readonly IUserService _userService;

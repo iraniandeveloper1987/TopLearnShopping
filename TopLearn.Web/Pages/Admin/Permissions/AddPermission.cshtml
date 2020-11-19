@@ -1,0 +1,197 @@
+﻿@page
+@using TopLearn.DAL.Entities.Permissions
+@model TopLearn.Web.Pages.Admin.Permissions.AddPermissionModel
+@{
+    var permissions = ViewData["Permission"] as List<Permission>;
+}
+
+
+
+
+<div class="row" style="margin-top: 30px">
+
+
+    <form method="post">
+
+        <div class="col-md-8 col-lg-8 col-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    تعریف دسترسی جدید
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>عنوان دسترسی </label>
+                    <input asp-for="Permission.PermissionTitle" class="form-control">
+                    <span class="text-danger" asp-validation-for="Permission.PermissionTitle"></span>
+                </div>
+
+
+                <div class="form-group" style="margin: 10px">
+
+                    <input class="btn btn-success" value="افزودن دسترسی جدید" type="submit">
+                 
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <i class="fa fa-bell text-danger"></i> <b class="text-danger">فقط یک دسترسی را انتخاب کنید تا دسترسی جدید زیر مجوعه آن قرار بگیرد</b>
+
+                </div>
+                <div class="panel-body">
+
+                    <ul>
+                        @foreach (var mainNode in permissions.Where(p => p.ParentId == null))
+                        {
+                            <li>
+                                <input class="checkbox1" type="checkbox" name="selectedPermission" value="@mainNode.PermissionId" /> <b class="text-success">@mainNode.PermissionTitle</b>
+
+                                @if (permissions.Any(p => p.ParentId == mainNode.PermissionId))
+                                {
+
+                                    <ul>
+
+                                        @foreach (var subNode1 in permissions.Where(p => p.ParentId == mainNode.PermissionId).ToList())
+                                        {
+                                            <li>
+                                                <input class="checkbox1" type="checkbox" name="selectedPermission" value="@subNode1.PermissionId" /> <b class="text-primary"> @subNode1.PermissionTitle</b>
+
+                                                @if (permissions.Any(p => p.ParentId == subNode1.PermissionId))
+                                                {
+                                                    <ul>
+
+                                                        @foreach (var subNode2 in permissions.Where(p => p.ParentId == subNode1.PermissionId).ToList())
+                                                        {
+                                                            <li>
+                                                                <input class="checkbox1" type="checkbox" name="selectedPermission" value="@subNode2.PermissionId" />  <b class="text-danger"> @subNode2.PermissionTitle</b>
+                                                            </li>
+
+                                                        }
+
+
+                                                    </ul>
+
+                                                }
+
+                                            </li>
+                                        }
+
+                                    </ul>
+
+                                }
+
+
+                            </li>
+
+                        }
+                    </ul>
+
+
+                </div>
+                <div class="panel-footer">
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts
+{
+
+
+    <partial name="_ValidationScriptsPartial" />
+    
+    <script src="~/Admin/js/bootstrap-notify.min.js"></script>
+    
+    @if ((ViewData["NotSelectPermission"] != null))
+    {
+        <script>
+            $.notify({
+                // options
+                message: 'حتما یک دسترسی را برای زیر مجموعه قرار دادن این دسترسی باید انتخاب کنید'
+            },
+                {
+                    // settings
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    }
+
+                });
+        </script>
+    }
+
+    @if ((ViewData["OverSelectPemission"] != null))
+    {
+        <script>
+            $.notify({
+                // options
+                message: 'دسترسی جدید ، باید فقظ زیر مجموعه یک از دسترسی ها باشد'
+            },
+                {
+                    // settings
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    }
+                });
+        </script>
+    }
+
+    @if ((ViewData["IsSuccess"] != null))
+    {
+        <script>
+            $.notify({
+                // options
+                message: 'دسترسی جدید با موفقیت ثبت شد'
+            },
+                {
+                    // settings
+                    type: 'success',
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    }
+                });
+        </script>
+
+    }
+
+    @*<script>
+        $(document).ready(() => {
+
+            var permissionId;
+
+            $(".checkbox1").change((e) => {
+
+               
+                //debugger;
+                //if ($(this).is(":checked"))
+                if ($(this).checked)
+                {
+                    permissionId = $(this).val();
+                    console.log(permissionId);
+                    alert(permissionId);
+                }
+                else {
+                    alert(" can not find value permission");
+                    return true;
+                }
+
+            });
+
+            $("#btnEditPermission").click(() => {
+
+            });
+
+        });
+
+    </script>*@
+    
+}

@@ -23,6 +23,8 @@ namespace TopLearn.DAL.Entities.Permissions
 
         public int? ParentId { get; set; }
 
+        public bool IsDeleted { get; set; }
+
 
         #region Navigation Properties
 

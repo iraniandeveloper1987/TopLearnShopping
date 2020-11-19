@@ -5,13 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using TopLearn.Core.DTOs.Admin.User;
+using TopLearn.Core.Enums;
+using TopLearn.Core.FilterAttributes;
 using TopLearn.Core.Repository.Interfaces.User;
 
 namespace TopLearn.Web.Pages.Admin.Users
 {
+    [CheckPermission((int)PermissionEnum.ListDeletedUsers)]
     public class ListDeletedUsers : PageModel
     {
-        private IUserService _userService;
+        private readonly IUserService _userService;
 
         public ListDeletedUsers(IUserService userService)
         {
@@ -19,6 +22,7 @@ namespace TopLearn.Web.Pages.Admin.Users
         }
 
 
+        [BindProperty]
         public UsersForAdminViewModel AllDeletedUsers { get; set; }
 
 

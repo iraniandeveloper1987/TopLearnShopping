@@ -36,7 +36,7 @@ namespace TopLearn.DAL.Context
         #endregion
 
 
-        #region Seed data
+        #region Seed data and QueryFilter 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,12 @@ namespace TopLearn.DAL.Context
                 Description = "مدیر سایت"
             },
                 new Role()
-                { RoleId = 2, RoleName = "user", Description = "کاربر عادی سایت" });
+                {
+                    RoleId = 2,
+                    RoleName = "user",
+                    Description = "کاربر عادی سایت"
+
+                });
 
             modelBuilder.Entity<WalletType>().HasData(new WalletType()
             {
@@ -64,11 +69,22 @@ namespace TopLearn.DAL.Context
                 });
 
 
+            modelBuilder.Entity<Permission>().HasData(new Permission()
+            {
+                PermissionId = 1,
+                PermissionTitle = "پنل مدیریت",
+                ParentId = null
+            });
+
+
             #region QueryFilter 
 
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
 
             modelBuilder.Entity<Role>().HasQueryFilter(r => !r.IsDeleted);
+
+            modelBuilder.Entity<Permission>().HasQueryFilter(p => !p.IsDeleted);
+
 
             #endregion
 

@@ -1,0 +1,127 @@
+﻿@page
+@using TopLearn.DAL.Entities.Permissions
+@model TopLearn.Web.Pages.Admin.Permissions.DeletePermissionModel
+@{
+    var permissions = ViewData["Permission"] as List<Permission>;
+}
+
+<div class="row" style="margin-top: 30px">
+
+
+    <form method="post">
+
+        
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <i class="fa fa-bell text-danger"></i> <b style="color: black">برای حذف دسترسی های مورد نظر در ابتدا ان ها رو انتخاب کنید</b>
+
+                </div>
+                <div class="panel-body">
+
+                    <ul>
+                        @foreach (var mainNode in permissions.Where(p => p.ParentId == null))
+                        {
+                            <li>
+                                <input class="checkbox1" type="checkbox" name="selectedPermission" value="@mainNode.PermissionId" /> <b class="text-success">@mainNode.PermissionTitle</b>
+
+                                @if (permissions.Any(p => p.ParentId == mainNode.PermissionId))
+                                {
+
+                                    <ul>
+
+                                        @foreach (var subNode1 in permissions.Where(p => p.ParentId == mainNode.PermissionId).ToList())
+                                        {
+                                            <li>
+                                                <input class="checkbox1" type="checkbox" name="selectedPermission" value="@subNode1.PermissionId" /> <b class="text-primary"> @subNode1.PermissionTitle</b>
+
+                                                @if (permissions.Any(p => p.ParentId == subNode1.PermissionId))
+                                                {
+                                                    <ul>
+
+                                                        @foreach (var subNode2 in permissions.Where(p => p.ParentId == subNode1.PermissionId).ToList())
+                                                        {
+                                                            <li>
+                                                                <input class="checkbox1" type="checkbox" name="selectedPermission" value="@subNode2.PermissionId" />  <b class="text-danger"> @subNode2.PermissionTitle</b>
+                                                            </li>
+
+                                                        }
+
+
+                                                    </ul>
+
+                                                }
+
+                                            </li>
+                                        }
+
+                                    </ul>
+
+                                }
+
+
+                            </li>
+
+                        }
+                    </ul>
+
+
+                </div>
+                <div class="panel-footer">
+                    <input type="submit" class=" btn btn-danger" value="حذف دسترسی ها"/>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts
+{
+
+
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/Admin/js/bootstrap-notify.min.js"></script>
+
+    @if ((ViewData["NotSelectPermission"] != null))
+    {
+        <script>
+            $.notify({
+                    // options
+                    message: 'حداقل یکی از دسترسی ها را برای حذف شدن انتخاب کنید'
+                },
+                {
+                    // settings
+                    type: 'danger',
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    }
+
+                });
+        </script>
+    }
+
+
+    @if ((ViewData["IsSuccess"] != null))
+    {
+        <script>
+            $.notify({
+                    // options
+                    message: 'دسترسی های مورد نظر با موفقیت حذف شدند  '
+                },
+                {
+                    // settings
+                    type: 'success',
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    }
+                });
+        </script>
+
+    }
+
+}
