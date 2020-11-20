@@ -21,6 +21,22 @@
     <Compile Remove="Migrations\20201103145438_Initial_db.Designer.cs" />
     <Compile Remove="Migrations\20201106172701_Mig-InitDb.cs" />
     <Compile Remove="Migrations\20201106172701_Mig-InitDb.Designer.cs" />
+    <Compile Remove="Migrations\20201106173633_mig-InitDb.cs" />
+    <Compile Remove="Migrations\20201106173633_mig-InitDb.Designer.cs" />
+    <Compile Remove="Migrations\20201108192754_AddSomeEntities.cs" />
+    <Compile Remove="Migrations\20201108192754_AddSomeEntities.Designer.cs" />
+    <Compile Remove="Migrations\20201115111216_Add IsDeleted property to Role And User Entiti.cs" />
+    <Compile Remove="Migrations\20201115111216_Add IsDeleted property to Role And User Entiti.Designer.cs" />
+    <Compile Remove="Migrations\20201116125913_Add requred Description in role entity.cs" />
+    <Compile Remove="Migrations\20201116125913_Add requred Description in role entity.Designer.cs" />
+    <Compile Remove="Migrations\20201117172551_Mig-Add Permissions .cs" />
+    <Compile Remove="Migrations\20201117172551_Mig-Add Permissions .Designer.cs" />
+    <Compile Remove="Migrations\20201118172735_Add-IsDeleted to Permission entity.cs" />
+    <Compile Remove="Migrations\20201118172735_Add-IsDeleted to Permission entity.Designer.cs" />
+    <Compile Remove="Migrations\20201120113456_Add CourseGroupe Entity .cs" />
+    <Compile Remove="Migrations\20201120113456_Add CourseGroupe Entity .Designer.cs" />
+    <Compile Remove="Migrations\20201120120906_Mig-InitialDb-FirstTime.cs" />
+    <Compile Remove="Migrations\20201120120906_Mig-InitialDb-FirstTime.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TopLearn.DAL.Context;
 
 namespace TopLearn.DAL.Migrations
 {
     [DbContext(typeof(TopLearnContext))]
-    partial class TopLearnContextModelSnapshot : ModelSnapshot
+    [Migration("20201120144932_Mig-Add Entities Related To Course")]
+    partial class MigAddEntitiesRelatedToCourse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,28 +240,6 @@ namespace TopLearn.DAL.Migrations
                     b.HasKey("LevelId");
 
                     b.ToTable("CourseLevels");
-
-                    b.HasData(
-                        new
-                        {
-                            LevelId = 1,
-                            LevelTitle = "مقدماتی"
-                        },
-                        new
-                        {
-                            LevelId = 2,
-                            LevelTitle = "متوسط"
-                        },
-                        new
-                        {
-                            LevelId = 3,
-                            LevelTitle = "پیشرفته"
-                        },
-                        new
-                        {
-                            LevelId = 4,
-                            LevelTitle = "فوق پیشرفته"
-                        });
                 });
 
             modelBuilder.Entity("TopLearn.DAL.Entities.Course.CourseStatus", b =>
@@ -277,23 +257,6 @@ namespace TopLearn.DAL.Migrations
                     b.HasKey("StatusId");
 
                     b.ToTable("CourseStatuses");
-
-                    b.HasData(
-                        new
-                        {
-                            StatusId = 1,
-                            StatusTitle = "درحال برگزاری دوره"
-                        },
-                        new
-                        {
-                            StatusId = 2,
-                            StatusTitle = "اتمام دوره"
-                        },
-                        new
-                        {
-                            StatusId = 3,
-                            StatusTitle = "توقف دوره"
-                        });
                 });
 
             modelBuilder.Entity("TopLearn.DAL.Entities.Permissions.Permission", b =>
@@ -677,7 +640,7 @@ namespace TopLearn.DAL.Migrations
                             IsDeleted = false,
                             Mobile = "09198948580",
                             Password = "20-2C-B9-62-AC-59-07-5B-96-4B-07-15-2D-23-4B-70",
-                            RegisterDate = new DateTime(2020, 11, 20, 18, 28, 37, 693, DateTimeKind.Local).AddTicks(319),
+                            RegisterDate = new DateTime(2020, 11, 20, 18, 19, 31, 308, DateTimeKind.Local).AddTicks(4820),
                             UserAvatar = "Default.jpg",
                             UserName = "admin"
                         });

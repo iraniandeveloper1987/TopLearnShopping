@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using TopLearn.DAL.Entities.Course;
 
 namespace TopLearn.DAL.Entities
 {
@@ -73,6 +74,8 @@ namespace TopLearn.DAL.Entities
         public virtual List<RoleUser> RoleUsers { get; set; }
 
         public virtual List<Wallet> Wallets { get; set; }
+
+        public virtual List<Course.Course> Courses { get; set; }
 
         #endregion
 

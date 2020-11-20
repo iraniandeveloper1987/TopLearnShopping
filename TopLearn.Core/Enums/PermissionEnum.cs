@@ -14,13 +14,13 @@ namespace TopLearn.Core.Enums
         ListDeletedUsers = 6,
         RoleManagement = 7,
         AddRole=8 ,
-        EditRole=10,
-        DeleteRole = 11,
-        ListDeletedRoles =12,
-        PermissionManagement =1009,
-        AddPermission = 1012,
-        EditPermission = 1013 ,
-        DeletePermission = 1014
+        EditRole=9,
+        DeleteRole = 10,
+        ListDeletedRoles =11,
+        PermissionManagement =12,
+        AddPermission = 13,
+        EditPermission = 14 ,
+        DeletePermission = 15
 
 
 
