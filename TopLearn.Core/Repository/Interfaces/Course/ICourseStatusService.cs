@@ -7,11 +7,8 @@ using TopLearn.DAL.Entities.Course;
 
 namespace TopLearn.Core.Repository.Interfaces.Course
 {
-    public interface ICourseGroupService :  IBaseService<CourseGroup>
+    public interface ICourseStatusService : IBaseService<CourseStatus>
     {
-        List<SelectListItem> GetMainCourseGroup();
-        List<SelectListItem> GetSubCourseGroup(int mainCourseGroup);
-
+        List<SelectListItem> GetAllCourseStatus();
     }
 }
-

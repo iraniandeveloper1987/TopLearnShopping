@@ -1,0 +1,172 @@
+﻿@page
+@model TopLearn.Web.Pages.Admin.Course.CreateCourseModel
+@{
+}
+
+
+
+<div class="row" style="margin-top: 30px">
+
+    <form method="post" enctype="multipart/form-data">
+
+        <div class="col-md-8 col-lg-8 col-sm-8">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    مشخصات دوره
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>گروه اصلی دوره</label>
+                    <select asp-for="Course.GroupId" asp-items="@ViewData["MainCourseGroup"] as SelectList" class="form-control"></select>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>گروه فرعی دوره</label>
+                    <select asp-for="Course.SubGroup" asp-items="@ViewData["SubCourseGroup"] as SelectList" class="form-control"></select>
+
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>عنوان دوره</label>
+                    <input asp-for="Course.CourseTitle" class="form-control">
+                    <span class="text-danger" asp-validation-for="Course.CourseTitle"></span>
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>شرح دوره</label>
+                    <textarea style="width: 808px; height: 120px" asp-for="Course.CourseDescription" class="form-control">
+                    </textarea>
+                    <span class="text-danger" asp-validation-for="Course.CourseDescription"></span>
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>قیمت دوره</label>
+                    <input asp-for="Course.CoursePrice" value="0" class="form-control">
+                    <span class="text-danger" asp-validation-for="Course.CoursePrice"></span>
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>کلمات کلیدی</label>
+                    <textarea asp-for="Course.Tags" class="form-control">
+                    </textarea>
+                    <p class="help-block text-danger">
+                        <span class="text-danger">کلمات کلیدی رو با <b> - </b> جدا کنید</span>
+                    </p>
+                    <span class="text-danger" asp-validation-for="Course.Tags"></span>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>فیلم دمو</label>
+                    <input type="file" name="DemoFileUpload" class="form-control">
+
+                </div>
+
+
+                <div class="form-group" style="margin: 10px">
+
+                    <input class="btn btn-success" value="ذخیره اطلاعات" type="submit">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-4">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    تصویر دوره
+                </div>
+                <div class="panel-body">
+                    <img class="thumbnail text-center" name="CourseImag" id="CourseImag" src="/images/Courses/DefaultCourse.jpg" style="height: 430px;" />
+                </div>
+                <div class="panel-footer">
+                    <input class="form-control" type="file" name="ImageCourseFileUpload" id="ImageCourseFileUpload" />
+                </div>
+            </div>
+
+            <div class="form-group" style="margin: 10px">
+                <label>سطح دوره</label>
+                <select asp-for="Course.LevelId" asp-items="@ViewData["CourseLevels"] as SelectList" class="form-control"></select>
+
+            </div>
+
+            <div class="form-group" style="margin: 10px">
+                <label>وضعیت دوره</label>
+                <select asp-for="Course.StatusId" asp-items="@ViewData["CourseStatuses"] as SelectList" class="form-control"></select>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+@section Scripts
+{
+
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#CourseImag').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+
+        $("#ImageCourseFileUpload").change(function () {
+            readURL(this);
+        });
+
+
+        $("#Course_GroupId").change(function () {
+
+          
+
+            $("#Course_SubGroup").empty();
+
+            $.getJSON("/Ajax/GetSubCourseGroup/" + $("#Course_GroupId :selected").val(),
+                (data) => {
+
+                    console.log(data);
+
+                    $.each(data,
+                        function() {
+                            $("#Course_SubGroup").append('<option value=' + this.value + '>' + this.text + '</option>');
+                            
+                        });
+
+                });
+
+        });
+
+
+    </script>
+
+
+    <script src="~/Admin/js/bootstrap-notify.min.js"></script>
+
+
+    @if ((ViewData["IsSuccess"] != null))
+    {
+        <script>
+            $.notify({
+                // options
+                message: 'کاربر جدید با موفقیت ثبت شد'
+            },
+                {
+                    // settings
+                    type: 'success',
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    }
+                });
+        </script>
+    }
+
+
+}
