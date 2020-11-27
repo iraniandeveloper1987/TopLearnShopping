@@ -47,6 +47,8 @@ namespace TopLearn.DAL.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+            #region SeedForUser
+
             modelBuilder.Entity<User>().HasData(new User()
             {
                 UserId = 1,
@@ -64,36 +66,59 @@ namespace TopLearn.DAL.Context
 
             });
 
+            #endregion
+
+            #region SeedForRole
 
             modelBuilder.Entity<Role>().HasData(new Role()
-            {
-                RoleId = 1,
-                RoleName = "admin",
-                Description = "مدیر سایت"
-            },
+                {
+                    RoleId = 1,
+                    RoleName = "admin",
+                    Description = "مدیر سایت"
+                },
                 new Role()
                 {
                     RoleId = 2,
+                    RoleName = "teacher",
+                    Description = "مدرس"
+
+                },
+                new Role()
+                {
+                    RoleId = 3,
                     RoleName = "user",
                     Description = "کاربر عادی سایت"
 
                 });
 
 
+            #endregion
+
+            #region SeedForRoleUser
+
             modelBuilder.Entity<RoleUser>().HasData(new RoleUser()
             {
                 Id = 1,
                 UserId = 1,
                 RoleId = 1
+            }, new RoleUser()
+            {
+                Id = 2,
+                UserId = 1,
+                RoleId = 2
+
             });
 
+            #endregion
+            
+            #region SeedWalleType
 
             modelBuilder.Entity<WalletType>().HasData(new WalletType()
-            {
-                WalletTypeId = 1,
-                Title = "deposit",
-                Description = "واریز"
-            },
+                {
+                    WalletTypeId = 1,
+                    Title = "deposit",
+                    Description = "واریز"
+                },
                 new WalletType()
                 {
                     WalletTypeId = 2,
@@ -103,88 +128,96 @@ namespace TopLearn.DAL.Context
                 });
 
 
+
+            #endregion
+
+            #region SeedForPermissions
+
             modelBuilder.Entity<Permission>().HasData(
-                new Permission()
-                {
-                    PermissionId = 1,
-                    PermissionTitle = "پنل مدیریت",
-                    ParentId = null
-                }
-                , new Permission()
-                {
-                    PermissionId = 2,
-                    PermissionTitle = "مدیریت کاربران",
-                    ParentId = 1
-                }, new Permission()
-                {
-                    PermissionId = 3,
-                    PermissionTitle = "افزودن کاربر",
-                    ParentId = 2
-                }, new Permission()
-                {
-                    PermissionId = 4,
-                    PermissionTitle = "ویرایش کاربر",
-                    ParentId = 2
-                }, new Permission()
-                {
-                    PermissionId = 5,
-                    PermissionTitle = "حذف کاربر",
-                    ParentId = 2
-                }, new Permission()
-                {
-                    PermissionId = 6,
-                    PermissionTitle = "لیست کاربران حذف شده",
-                    ParentId = 2
-                }
-                , new Permission()
-                {
-                    PermissionId = 7,
-                    PermissionTitle = "مدیریت نقش ها",
-                    ParentId = 1
-                }, new Permission()
-                {
-                    PermissionId = 8,
-                    PermissionTitle = "افزودن نقش",
-                    ParentId = 7
-                }, new Permission()
-                {
-                    PermissionId = 9,
-                    PermissionTitle = "ویرایش نقش",
-                    ParentId = 7
-                }, new Permission()
-                {
-                    PermissionId = 10,
-                    PermissionTitle = "حذف نقش",
-                    ParentId = 7
-                }, new Permission()
-                {
-                    PermissionId = 11,
-                    PermissionTitle = "لیست نقش های حذف شده",
-                    ParentId = 8
-                }
-                , new Permission()
-                {
-                    PermissionId = 12,
-                    PermissionTitle = "مدیریت دسترسی ها ",
-                    ParentId = 1
-                }, new Permission()
-                {
-                    PermissionId = 13,
-                    PermissionTitle = "افزودن دسترسی",
-                    ParentId = 12
-                }, new Permission()
-                {
-                    PermissionId = 14,
-                    PermissionTitle = "ویرایش دسترسی",
-                    ParentId = 12
-                }, new Permission()
-                {
-                    PermissionId = 15,
-                    PermissionTitle = "حذف دسترسی",
-                    ParentId = 12
-                });
+              new Permission()
+              {
+                  PermissionId = 1,
+                  PermissionTitle = "پنل مدیریت",
+                  ParentId = null
+              }
+              , new Permission()
+              {
+                  PermissionId = 2,
+                  PermissionTitle = "مدیریت کاربران",
+                  ParentId = 1
+              }, new Permission()
+              {
+                  PermissionId = 3,
+                  PermissionTitle = "افزودن کاربر",
+                  ParentId = 2
+              }, new Permission()
+              {
+                  PermissionId = 4,
+                  PermissionTitle = "ویرایش کاربر",
+                  ParentId = 2
+              }, new Permission()
+              {
+                  PermissionId = 5,
+                  PermissionTitle = "حذف کاربر",
+                  ParentId = 2
+              }, new Permission()
+              {
+                  PermissionId = 6,
+                  PermissionTitle = "لیست کاربران حذف شده",
+                  ParentId = 2
+              }
+              , new Permission()
+              {
+                  PermissionId = 7,
+                  PermissionTitle = "مدیریت نقش ها",
+                  ParentId = 1
+              }, new Permission()
+              {
+                  PermissionId = 8,
+                  PermissionTitle = "افزودن نقش",
+                  ParentId = 7
+              }, new Permission()
+              {
+                  PermissionId = 9,
+                  PermissionTitle = "ویرایش نقش",
+                  ParentId = 7
+              }, new Permission()
+              {
+                  PermissionId = 10,
+                  PermissionTitle = "حذف نقش",
+                  ParentId = 7
+              }, new Permission()
+              {
+                  PermissionId = 11,
+                  PermissionTitle = "لیست نقش های حذف شده",
+                  ParentId = 8
+              }
+              , new Permission()
+              {
+                  PermissionId = 12,
+                  PermissionTitle = "مدیریت دسترسی ها ",
+                  ParentId = 1
+              }, new Permission()
+              {
+                  PermissionId = 13,
+                  PermissionTitle = "افزودن دسترسی",
+                  ParentId = 12
+              }, new Permission()
+              {
+                  PermissionId = 14,
+                  PermissionTitle = "ویرایش دسترسی",
+                  ParentId = 12
+              }, new Permission()
+              {
+                  PermissionId = 15,
+                  PermissionTitle = "حذف دسترسی",
+                  ParentId = 12
+              });
 
 
+            #endregion
+
+            #region SeedForRolePermission
 
             modelBuilder.Entity<RolePermission>().HasData(new RolePermission()
             {
@@ -192,191 +225,199 @@ namespace TopLearn.DAL.Context
                 RoleId = 1,
                 PermissionId = 1
             },
-                new RolePermission()
-                {
-                    RolePermissionId = 2,
-                    RoleId = 1,
-                    PermissionId = 2
+           new RolePermission()
+           {
+               RolePermissionId = 2,
+               RoleId = 1,
+               PermissionId = 2
 
-                }
-                ,
-                new RolePermission()
-                {
-                    RolePermissionId = 3,
-                    RoleId = 1,
-                    PermissionId = 3
+           }
+           ,
+           new RolePermission()
+           {
+               RolePermissionId = 3,
+               RoleId = 1,
+               PermissionId = 3
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 4,
-                    RoleId = 1,
-                    PermissionId = 4
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 4,
+               RoleId = 1,
+               PermissionId = 4
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 5,
-                    RoleId = 1,
-                    PermissionId = 5
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 5,
+               RoleId = 1,
+               PermissionId = 5
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 6,
-                    RoleId = 1,
-                    PermissionId = 6
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 6,
+               RoleId = 1,
+               PermissionId = 6
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 7,
-                    RoleId = 1,
-                    PermissionId = 7
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 7,
+               RoleId = 1,
+               PermissionId = 7
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 8,
-                    RoleId = 1,
-                    PermissionId = 8
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 8,
+               RoleId = 1,
+               PermissionId = 8
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 9,
-                    RoleId = 1,
-                    PermissionId = 9
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 9,
+               RoleId = 1,
+               PermissionId = 9
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 10,
-                    RoleId = 1,
-                    PermissionId = 10
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 10,
+               RoleId = 1,
+               PermissionId = 10
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 11,
-                    RoleId = 1,
-                    PermissionId = 11
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 11,
+               RoleId = 1,
+               PermissionId = 11
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 12,
-                    RoleId = 1,
-                    PermissionId = 12
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 12,
+               RoleId = 1,
+               PermissionId = 12
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 13,
-                    RoleId = 1,
-                    PermissionId = 13
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 13,
+               RoleId = 1,
+               PermissionId = 13
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 14,
-                    RoleId = 1,
-                    PermissionId = 14
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 14,
+               RoleId = 1,
+               PermissionId = 14
 
-                },
-                new RolePermission()
-                {
-                    RolePermissionId = 15,
-                    RoleId = 1,
-                    PermissionId = 15
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 15,
+               RoleId = 1,
+               PermissionId = 15
 
-                });
+           });
 
+
+            #endregion
+
+            #region SeedForCourseGroup
 
             modelBuilder.Entity<CourseGroup>().HasData(
-                new CourseGroup()
-                {
-                    GroupId = 1,
-                    GroupTitle = "برنامه نویسی موبایل",
-                    ParentId = null,
-                    IsDelete = false
-                },
-                new CourseGroup()
-                {
-                    GroupId = 2,
-                    GroupTitle = " زامارین  Xamarin ",
-                    ParentId = 1,
-                    IsDelete = false
-                },
-                new CourseGroup()
-                {
-                    GroupId = 3,
-                    GroupTitle = " react Native ",
-                    ParentId = 1,
-                    IsDelete = false
-                },
-                new CourseGroup()
-                {
-                    GroupId = 4,
-                    GroupTitle = "برنامه نویسی وب",
-                    ParentId = null,
-                    IsDelete = false
-                }
-                ,
-                new CourseGroup()
-                {
-                    GroupId = 5,
-                    GroupTitle = "asp.net WebForm",
-                    ParentId = 4,
-                    IsDelete = false
-                }
-                ,
-                new CourseGroup()
-                {
-                    GroupId = 6,
-                    GroupTitle = "asp.net Mvc",
-                    ParentId = 4,
-                    IsDelete = false
-                }
-                ,
-                new CourseGroup()
-                {
-                    GroupId = 7,
-                    GroupTitle = "asp.net Core ",
-                    ParentId = 4,
-                    IsDelete = false
-                }
-                ,
-                new CourseGroup()
-                {
-                    GroupId = 8,
-                    GroupTitle = "برنامه نویسی تحت وبندوز",
-                    ParentId = null,
-                    IsDelete = false
-                }
-                ,
-                new CourseGroup()
-                {
-                    GroupId = 9,
-                    GroupTitle = "طراحی سایت ",
-                    ParentId = null,
-                    IsDelete = false
-                },
-                new CourseGroup()
-                {
-                    GroupId = 10,
-                    GroupTitle = "Html",
-                    ParentId = 9,
-                    IsDelete = false
-                },
-                new CourseGroup()
-                {
-                    GroupId = 11,
-                    GroupTitle = "Css",
-                    ParentId = 9,
-                    IsDelete = false
-                });
+              new CourseGroup()
+              {
+                  GroupId = 1,
+                  GroupTitle = "برنامه نویسی موبایل",
+                  ParentId = null,
+                  IsDelete = false
+              },
+              new CourseGroup()
+              {
+                  GroupId = 2,
+                  GroupTitle = " زامارین  Xamarin ",
+                  ParentId = 1,
+                  IsDelete = false
+              },
+              new CourseGroup()
+              {
+                  GroupId = 3,
+                  GroupTitle = " react Native ",
+                  ParentId = 1,
+                  IsDelete = false
+              },
+              new CourseGroup()
+              {
+                  GroupId = 4,
+                  GroupTitle = "برنامه نویسی وب",
+                  ParentId = null,
+                  IsDelete = false
+              }
+              ,
+              new CourseGroup()
+              {
+                  GroupId = 5,
+                  GroupTitle = "asp.net WebForm",
+                  ParentId = 4,
+                  IsDelete = false
+              }
+              ,
+              new CourseGroup()
+              {
+                  GroupId = 6,
+                  GroupTitle = "asp.net Mvc",
+                  ParentId = 4,
+                  IsDelete = false
+              }
+              ,
+              new CourseGroup()
+              {
+                  GroupId = 7,
+                  GroupTitle = "asp.net Core ",
+                  ParentId = 4,
+                  IsDelete = false
+              }
+              ,
+              new CourseGroup()
+              {
+                  GroupId = 8,
+                  GroupTitle = "برنامه نویسی تحت وبندوز",
+                  ParentId = null,
+                  IsDelete = false
+              }
+              ,
+              new CourseGroup()
+              {
+                  GroupId = 9,
+                  GroupTitle = "طراحی سایت ",
+                  ParentId = null,
+                  IsDelete = false
+              },
+              new CourseGroup()
+              {
+                  GroupId = 10,
+                  GroupTitle = "Html",
+                  ParentId = 9,
+                  IsDelete = false
+              },
+              new CourseGroup()
+              {
+                  GroupId = 11,
+                  GroupTitle = "Css",
+                  ParentId = 9,
+                  IsDelete = false
+              });
 
+
+            #endregion
+
+            #region SeedForCourseLevel
 
             modelBuilder.Entity<CourseLevel>().HasData(
                 new CourseLevel()
@@ -400,6 +441,10 @@ namespace TopLearn.DAL.Context
                     LevelTitle = "فوق پیشرفته"
                 });
 
+            #endregion
+
+            #region SeedForCourseStatus
+
             modelBuilder.Entity<CourseStatus>().HasData(
                 new CourseStatus()
                 {
@@ -416,6 +461,8 @@ namespace TopLearn.DAL.Context
                     StatusId = 3,
                     StatusTitle = "توقف دوره"
                 });
+
+            #endregion
 
 
             #region QueryFilter 

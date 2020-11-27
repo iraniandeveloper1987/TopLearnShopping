@@ -14,6 +14,11 @@
                 <div class="panel-heading">
                     مشخصات دوره
                 </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>عنوان دوره</label>
+                    <input asp-for="Course.CourseTitle" class="form-control">
+                    <span class="text-danger" asp-validation-for="Course.CourseTitle"></span>
+                </div>
 
                 <div class="form-group" style="margin: 10px">
                     <label>گروه اصلی دوره</label>
@@ -25,12 +30,14 @@
                     <select asp-for="Course.SubGroup" asp-items="@ViewData["SubCourseGroup"] as SelectList" class="form-control"></select>
 
                 </div>
-
+                
                 <div class="form-group" style="margin: 10px">
-                    <label>عنوان دوره</label>
-                    <input asp-for="Course.CourseTitle" class="form-control">
-                    <span class="text-danger" asp-validation-for="Course.CourseTitle"></span>
+                    <label>مدرس دوره</label>
+                    <select asp-for="Course.TeacherId" asp-items="@ViewData["Teachers"] as SelectList" class="form-control"></select>
+
                 </div>
+
+               
                 <div class="form-group" style="margin: 10px">
                     <label>شرح دوره</label>
                     <textarea style="width: 808px; height: 120px" asp-for="Course.CourseDescription" class="form-control">
@@ -54,7 +61,7 @@
 
                 <div class="form-group" style="margin: 10px">
                     <label>فیلم دمو</label>
-                    <input type="file" name="DemoFileUpload" class="form-control">
+                    <input type="file" name="demoFileUpload" class="form-control">
 
                 </div>
 
@@ -74,7 +81,7 @@
                     <img class="thumbnail text-center" name="CourseImag" id="CourseImag" src="/images/Courses/DefaultCourse.jpg" style="height: 430px;" />
                 </div>
                 <div class="panel-footer">
-                    <input class="form-control" type="file" name="ImageCourseFileUpload" id="ImageCourseFileUpload" />
+                    <input class="form-control" type="file" name="imageCourseFileUpload" id="ImageCourseFileUpload" />
                 </div>
             </div>
 

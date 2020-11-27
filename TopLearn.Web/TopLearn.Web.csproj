@@ -38,6 +38,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\Admin\Shared\ViewComponents\" />
+    <Folder Include="wwwroot\images\Courses\Demo\" />
   </ItemGroup>
 
 </Project>

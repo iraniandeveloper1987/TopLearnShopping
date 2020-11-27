@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TopLearn.DAL.Migrations
 {
-    public partial class MigInitialDbFirstTime : Migration
+    public partial class MigInitialDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,6 +26,32 @@ namespace TopLearn.DAL.Migrations
                         principalTable: "CourseGroups",
                         principalColumn: "GroupId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseLevels",
+                columns: table => new
+                {
+                    LevelId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LevelTitle = table.Column<string>(maxLength: 150, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseLevels", x => x.LevelId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseStatuses",
+                columns: table => new
+                {
+                    StatusId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StatusTitle = table.Column<string>(maxLength: 150, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseStatuses", x => x.StatusId);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,6 +152,63 @@ namespace TopLearn.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    CourseId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GroupId = table.Column<int>(nullable: false),
+                    SubGroup = table.Column<int>(nullable: true),
+                    TeacherId = table.Column<int>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    LevelId = table.Column<int>(nullable: false),
+                    CourseTitle = table.Column<string>(maxLength: 450, nullable: false),
+                    CourseDescription = table.Column<string>(nullable: false),
+                    CoursePrice = table.Column<int>(nullable: false),
+                    Tags = table.Column<string>(maxLength: 600, nullable: true),
+                    CourseImageName = table.Column<string>(maxLength: 50, nullable: true),
+                    DemoFileName = table.Column<string>(maxLength: 100, nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    UpdateDate = table.Column<DateTime>(nullable: true),
+                    CourseStatusStatusId = table.Column<int>(nullable: true),
+                    CourseLevelLevelId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.CourseId);
+                    table.ForeignKey(
+                        name: "FK_Courses_CourseLevels_CourseLevelLevelId",
+                        column: x => x.CourseLevelLevelId,
+                        principalTable: "CourseLevels",
+                        principalColumn: "LevelId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Courses_CourseStatuses_CourseStatusStatusId",
+                        column: x => x.CourseStatusStatusId,
+                        principalTable: "CourseStatuses",
+                        principalColumn: "StatusId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Courses_CourseGroups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "CourseGroups",
+                        principalColumn: "GroupId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Courses_CourseGroups_SubGroup",
+                        column: x => x.SubGroup,
+                        principalTable: "CourseGroups",
+                        principalColumn: "GroupId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Courses_Users_TeacherId",
+                        column: x => x.TeacherId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RoleUsers",
                 columns: table => new
                 {
@@ -181,6 +264,29 @@ namespace TopLearn.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CourseEpisodes",
+                columns: table => new
+                {
+                    EpisodeId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CourseId = table.Column<int>(nullable: false),
+                    EpisodeTitle = table.Column<string>(maxLength: 400, nullable: false),
+                    EpisodeTime = table.Column<TimeSpan>(nullable: false),
+                    EpisodeFileName = table.Column<string>(nullable: true),
+                    IsFree = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseEpisodes", x => x.EpisodeId);
+                    table.ForeignKey(
+                        name: "FK_CourseEpisodes_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "CourseGroups",
                 columns: new[] { "GroupId", "GroupTitle", "IsDelete", "ParentId" },
@@ -190,6 +296,27 @@ namespace TopLearn.DAL.Migrations
                     { 4, "برنامه نویسی وب", false, null },
                     { 8, "برنامه نویسی تحت وبندوز", false, null },
                     { 9, "طراحی سایت ", false, null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CourseLevels",
+                columns: new[] { "LevelId", "LevelTitle" },
+                values: new object[,]
+                {
+                    { 1, "مقدماتی" },
+                    { 2, "متوسط" },
+                    { 3, "پیشرفته" },
+                    { 4, "فوق پیشرفته" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CourseStatuses",
+                columns: new[] { "StatusId", "StatusTitle" },
+                values: new object[,]
+                {
+                    { 3, "توقف دوره" },
+                    { 1, "درحال برگزاری دوره" },
+                    { 2, "اتمام دوره" }
                 });
 
             migrationBuilder.InsertData(
@@ -203,13 +330,14 @@ namespace TopLearn.DAL.Migrations
                 values: new object[,]
                 {
                     { 1, "مدیر سایت", false, "admin" },
-                    { 2, "کاربر عادی سایت", false, "user" }
+                    { 2, "مدرس", false, "teacher" },
+                    { 3, "کاربر عادی سایت", false, "user" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "ActiveCode", "Email", "FullName", "IsActive", "IsDeleted", "Mobile", "Password", "RegisterDate", "UserAvatar", "UserName" },
-                values: new object[] { 1, "18456637", "iraniandeveloper.net@gmail.com", "علی جهانگیر", true, false, "09198948580", "20-2C-B9-62-AC-59-07-5B-96-4B-07-15-2D-23-4B-70", new DateTime(2020, 11, 20, 16, 15, 1, 905, DateTimeKind.Local).AddTicks(4459), "Default.jpg", "admin" });
+                values: new object[] { 1, "18456637", "iraniandeveloper.net@gmail.com", "علی جهانگیر", true, false, "09198948580", "20-2C-B9-62-AC-59-07-5B-96-4B-07-15-2D-23-4B-70", new DateTime(2020, 11, 27, 16, 51, 50, 819, DateTimeKind.Local).AddTicks(8393), "Default.jpg", "admin" });
 
             migrationBuilder.InsertData(
                 table: "WalletTypes",
@@ -252,7 +380,11 @@ namespace TopLearn.DAL.Migrations
             migrationBuilder.InsertData(
                 table: "RoleUsers",
                 columns: new[] { "Id", "RoleId", "UserId" },
-                values: new object[] { 1, 1, 1 });
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 1 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Permissions",
@@ -309,9 +441,39 @@ namespace TopLearn.DAL.Migrations
                 values: new object[] { 11, 11, 1 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CourseEpisodes_CourseId",
+                table: "CourseEpisodes",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CourseGroups_ParentId",
                 table: "CourseGroups",
                 column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_CourseLevelLevelId",
+                table: "Courses",
+                column: "CourseLevelLevelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_CourseStatusStatusId",
+                table: "Courses",
+                column: "CourseStatusStatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_GroupId",
+                table: "Courses",
+                column: "GroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_SubGroup",
+                table: "Courses",
+                column: "SubGroup");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_TeacherId",
+                table: "Courses",
+                column: "TeacherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Permissions_ParentId",
@@ -352,7 +514,7 @@ namespace TopLearn.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CourseGroups");
+                name: "CourseEpisodes");
 
             migrationBuilder.DropTable(
                 name: "RolePermissions");
@@ -364,16 +526,28 @@ namespace TopLearn.DAL.Migrations
                 name: "Wallets");
 
             migrationBuilder.DropTable(
+                name: "Courses");
+
+            migrationBuilder.DropTable(
                 name: "Permissions");
 
             migrationBuilder.DropTable(
                 name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "WalletTypes");
 
             migrationBuilder.DropTable(
-                name: "WalletTypes");
+                name: "CourseLevels");
+
+            migrationBuilder.DropTable(
+                name: "CourseStatuses");
+
+            migrationBuilder.DropTable(
+                name: "CourseGroups");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

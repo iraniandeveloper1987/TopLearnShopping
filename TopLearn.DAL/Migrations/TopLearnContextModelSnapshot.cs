@@ -576,6 +576,13 @@ namespace TopLearn.DAL.Migrations
                         new
                         {
                             RoleId = 2,
+                            Description = "مدرس",
+                            IsDeleted = false,
+                            RoleName = "teacher"
+                        },
+                        new
+                        {
+                            RoleId = 3,
                             Description = "کاربر عادی سایت",
                             IsDeleted = false,
                             RoleName = "user"
@@ -608,6 +615,12 @@ namespace TopLearn.DAL.Migrations
                         {
                             Id = 1,
                             RoleId = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoleId = 2,
                             UserId = 1
                         });
                 });
@@ -677,7 +690,7 @@ namespace TopLearn.DAL.Migrations
                             IsDeleted = false,
                             Mobile = "09198948580",
                             Password = "20-2C-B9-62-AC-59-07-5B-96-4B-07-15-2D-23-4B-70",
-                            RegisterDate = new DateTime(2020, 11, 20, 18, 28, 37, 693, DateTimeKind.Local).AddTicks(319),
+                            RegisterDate = new DateTime(2020, 11, 27, 16, 51, 50, 819, DateTimeKind.Local).AddTicks(8393),
                             UserAvatar = "Default.jpg",
                             UserName = "admin"
                         });

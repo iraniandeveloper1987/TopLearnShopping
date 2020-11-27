@@ -37,6 +37,12 @@
     <Compile Remove="Migrations\20201120113456_Add CourseGroupe Entity .Designer.cs" />
     <Compile Remove="Migrations\20201120120906_Mig-InitialDb-FirstTime.cs" />
     <Compile Remove="Migrations\20201120120906_Mig-InitialDb-FirstTime.Designer.cs" />
+    <Compile Remove="Migrations\20201120124502_Mig-InitialDb-FirstTime.cs" />
+    <Compile Remove="Migrations\20201120124502_Mig-InitialDb-FirstTime.Designer.cs" />
+    <Compile Remove="Migrations\20201120144932_Mig-Add Entities Related To Course.cs" />
+    <Compile Remove="Migrations\20201120144932_Mig-Add Entities Related To Course.Designer.cs" />
+    <Compile Remove="Migrations\20201120145838_Add Seed For CourseLevel And CourseStatuse .cs" />
+    <Compile Remove="Migrations\20201120145838_Add Seed For CourseLevel And CourseStatuse .Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

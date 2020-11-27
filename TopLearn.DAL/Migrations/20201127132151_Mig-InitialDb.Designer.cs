@@ -10,8 +10,8 @@ using TopLearn.DAL.Context;
 namespace TopLearn.DAL.Migrations
 {
     [DbContext(typeof(TopLearnContext))]
-    [Migration("20201120124502_Mig-InitialDb-FirstTime")]
-    partial class MigInitialDbFirstTime
+    [Migration("20201127132151_Mig-InitialDb")]
+    partial class MigInitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,110 @@ namespace TopLearn.DAL.Migrations
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("TopLearn.DAL.Entities.Course.Course", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CourseDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseImageName")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<int?>("CourseLevelLevelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CoursePrice")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CourseStatusStatusId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CourseTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DemoFileName")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LevelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubGroup")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tags")
+                        .HasColumnType("nvarchar(600)")
+                        .HasMaxLength(600);
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("CourseId");
+
+                    b.HasIndex("CourseLevelLevelId");
+
+                    b.HasIndex("CourseStatusStatusId");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("SubGroup");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("TopLearn.DAL.Entities.Course.CourseEpisode", b =>
+                {
+                    b.Property<int>("EpisodeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EpisodeFileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("EpisodeTime")
+                        .HasColumnType("time");
+
+                    b.Property<string>("EpisodeTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(400)")
+                        .HasMaxLength(400);
+
+                    b.Property<bool>("IsFree")
+                        .HasColumnType("bit");
+
+                    b.HasKey("EpisodeId");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CourseEpisodes");
+                });
 
             modelBuilder.Entity("TopLearn.DAL.Entities.Course.CourseGroup", b =>
                 {
@@ -118,6 +222,79 @@ namespace TopLearn.DAL.Migrations
                             GroupTitle = "Css",
                             IsDelete = false,
                             ParentId = 9
+                        });
+                });
+
+            modelBuilder.Entity("TopLearn.DAL.Entities.Course.CourseLevel", b =>
+                {
+                    b.Property<int>("LevelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LevelTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.HasKey("LevelId");
+
+                    b.ToTable("CourseLevels");
+
+                    b.HasData(
+                        new
+                        {
+                            LevelId = 1,
+                            LevelTitle = "مقدماتی"
+                        },
+                        new
+                        {
+                            LevelId = 2,
+                            LevelTitle = "متوسط"
+                        },
+                        new
+                        {
+                            LevelId = 3,
+                            LevelTitle = "پیشرفته"
+                        },
+                        new
+                        {
+                            LevelId = 4,
+                            LevelTitle = "فوق پیشرفته"
+                        });
+                });
+
+            modelBuilder.Entity("TopLearn.DAL.Entities.Course.CourseStatus", b =>
+                {
+                    b.Property<int>("StatusId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("StatusTitle")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(150)")
+                        .HasMaxLength(150);
+
+                    b.HasKey("StatusId");
+
+                    b.ToTable("CourseStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            StatusId = 1,
+                            StatusTitle = "درحال برگزاری دوره"
+                        },
+                        new
+                        {
+                            StatusId = 2,
+                            StatusTitle = "اتمام دوره"
+                        },
+                        new
+                        {
+                            StatusId = 3,
+                            StatusTitle = "توقف دوره"
                         });
                 });
 
@@ -401,6 +578,13 @@ namespace TopLearn.DAL.Migrations
                         new
                         {
                             RoleId = 2,
+                            Description = "مدرس",
+                            IsDeleted = false,
+                            RoleName = "teacher"
+                        },
+                        new
+                        {
+                            RoleId = 3,
                             Description = "کاربر عادی سایت",
                             IsDeleted = false,
                             RoleName = "user"
@@ -433,6 +617,12 @@ namespace TopLearn.DAL.Migrations
                         {
                             Id = 1,
                             RoleId = 1,
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            RoleId = 2,
                             UserId = 1
                         });
                 });
@@ -502,7 +692,7 @@ namespace TopLearn.DAL.Migrations
                             IsDeleted = false,
                             Mobile = "09198948580",
                             Password = "20-2C-B9-62-AC-59-07-5B-96-4B-07-15-2D-23-4B-70",
-                            RegisterDate = new DateTime(2020, 11, 20, 16, 15, 1, 905, DateTimeKind.Local).AddTicks(4459),
+                            RegisterDate = new DateTime(2020, 11, 27, 16, 51, 50, 819, DateTimeKind.Local).AddTicks(8393),
                             UserAvatar = "Default.jpg",
                             UserName = "admin"
                         });
@@ -574,6 +764,42 @@ namespace TopLearn.DAL.Migrations
                             Description = "برداشت",
                             Title = "Withdraw"
                         });
+                });
+
+            modelBuilder.Entity("TopLearn.DAL.Entities.Course.Course", b =>
+                {
+                    b.HasOne("TopLearn.DAL.Entities.Course.CourseLevel", "CourseLevel")
+                        .WithMany("Courses")
+                        .HasForeignKey("CourseLevelLevelId");
+
+                    b.HasOne("TopLearn.DAL.Entities.Course.CourseStatus", "CourseStatus")
+                        .WithMany("Courses")
+                        .HasForeignKey("CourseStatusStatusId");
+
+                    b.HasOne("TopLearn.DAL.Entities.Course.CourseGroup", "CourseGroup")
+                        .WithMany("Courses")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TopLearn.DAL.Entities.Course.CourseGroup", "SubCourseGroup")
+                        .WithMany("SubGroup")
+                        .HasForeignKey("SubGroup");
+
+                    b.HasOne("TopLearn.DAL.Entities.User", "User")
+                        .WithMany("Courses")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TopLearn.DAL.Entities.Course.CourseEpisode", b =>
+                {
+                    b.HasOne("TopLearn.DAL.Entities.Course.Course", "Course")
+                        .WithMany("CourseEpisodes")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TopLearn.DAL.Entities.Course.CourseGroup", b =>
