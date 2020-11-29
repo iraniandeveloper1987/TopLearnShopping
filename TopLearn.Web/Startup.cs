@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -43,7 +44,15 @@ namespace TopLearn.Web
         {
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
+            #region For Upload File WithOut Limited Size In Mac And Linux OS
 
+            //services.Configure<FormOptions>(options =>
+            //{
+            //    options.MultipartBodyLengthLimit = 6000000;
+            //});
+
+            #endregion
+            
             #region  DataBase Context
 
             services.AddDbContext<TopLearnContext>(options =>

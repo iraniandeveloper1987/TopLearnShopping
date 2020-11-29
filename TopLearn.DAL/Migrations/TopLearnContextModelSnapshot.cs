@@ -61,6 +61,10 @@ namespace TopLearn.DAL.Migrations
                     b.Property<int>("LevelId")
                         .HasColumnType("int");
 
+                    b.Property<string>("ShortKey")
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
+
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
 
@@ -690,7 +694,7 @@ namespace TopLearn.DAL.Migrations
                             IsDeleted = false,
                             Mobile = "09198948580",
                             Password = "20-2C-B9-62-AC-59-07-5B-96-4B-07-15-2D-23-4B-70",
-                            RegisterDate = new DateTime(2020, 11, 27, 16, 51, 50, 819, DateTimeKind.Local).AddTicks(8393),
+                            RegisterDate = new DateTime(2020, 11, 29, 18, 2, 8, 929, DateTimeKind.Local).AddTicks(1204),
                             UserAvatar = "Default.jpg",
                             UserName = "admin"
                         });

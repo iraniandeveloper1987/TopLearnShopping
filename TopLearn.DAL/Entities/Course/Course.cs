@@ -51,6 +51,12 @@ namespace TopLearn.DAL.Entities.Course
 
         public DateTime? UpdateDate { get; set; }
 
+        [MaxLength(5, ErrorMessage = "فیلد {0} نمی تواند بیشتر از {1} کاراکترباشد")]
+        public string ShortKey { get; set; }
+
+        //public bool IsDeleted { get; set; }
+
+
 
         #region Relations (Navigation Properties)
 
@@ -68,6 +74,8 @@ namespace TopLearn.DAL.Entities.Course
         public CourseLevel CourseLevel { get; set; }
 
         public List<CourseEpisode> CourseEpisodes { get; set; }
+
+
         #endregion
     }
 }

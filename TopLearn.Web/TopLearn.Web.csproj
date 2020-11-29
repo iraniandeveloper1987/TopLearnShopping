@@ -39,6 +39,8 @@
   <ItemGroup>
     <Folder Include="Pages\Admin\Shared\ViewComponents\" />
     <Folder Include="wwwroot\images\Courses\Demo\" />
+    <Folder Include="wwwroot\images\Courses\Thumbnail\" />
+    <Folder Include="wwwroot\images\AppImages\" />
   </ItemGroup>
 
 </Project>

@@ -77,6 +77,7 @@ namespace TopLearn.DAL.Entities
 
         public virtual List<Course.Course> Courses { get; set; }
 
+      
         #endregion
 
     }
