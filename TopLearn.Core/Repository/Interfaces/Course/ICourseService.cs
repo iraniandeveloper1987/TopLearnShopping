@@ -22,5 +22,7 @@ namespace TopLearn.Core.Repository.Interfaces.Course
         ShowCourseForAdminViewModel GetCourseByIdForAdmin(int courseId);
 
         bool DeleteCourse(int id);
+
+      
     }
 }

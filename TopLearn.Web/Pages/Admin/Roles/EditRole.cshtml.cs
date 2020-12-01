@@ -43,6 +43,10 @@ namespace TopLearn.Web.Pages.Admin.Roles
 
         public IActionResult OnPost(List<int> selectedPermissions)
         {
+            if (!ModelState.IsValid)
+                return Page();
+
+
             _roleService.Update(Role);
             _roleService.Save();
 

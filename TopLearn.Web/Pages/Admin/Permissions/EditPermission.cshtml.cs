@@ -34,6 +34,10 @@ namespace TopLearn.Web.Pages.Admin.Permissions
         public IActionResult OnPost(List<int> selectedPermission)
         {
 
+            if (!ModelState.IsValid)
+                return Page();
+
+
             if (!selectedPermission.Any())
             {
                 ViewData["NotSelectPermission"] = true;

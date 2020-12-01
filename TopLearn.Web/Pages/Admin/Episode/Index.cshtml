@@ -1,0 +1,102 @@
+﻿@page "{courseId}"
+@model TopLearn.Web.Pages.Admin.Episode.IndexModel
+@{
+}
+
+
+
+<div class="col-lg-12">
+    <a class="btn btn-success" style="margin-top: 20px; margin-bottom: 10px;font-size: 15px ; width: 100px" href="/Admin/Episode/CreateEpisode/@ViewData["CourseId"]"> جلسه جدید </a>
+</div>
+
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            لیست جلسه های دوره
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive">
+                <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">
+
+                    <table class="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" aria-describedby="dataTables-example_info">
+                        <thead>
+                            <tr role="row">
+                             
+                                <th class="text-center">عنوان جلسه</th>
+                                <th class="text-center">زمان جلسه </th>
+                                <th class="text-center">رایگان </th>
+                                <th class="text-center">دستورات</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach (var item in Model.CourseEpisodes)
+                            {
+
+                                <tr class="odd">
+                                <td class="text-center">@item.EpisodeTitle</td>
+                                    <td class="text-center">@item.EpisodeTime</td>
+                                    <td class="text-center">
+                                        @if (item.IsFree)
+                                        {
+                                            <i class="glyphicon glyphicon-ok text-success"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="glyphicon glyphicon-remove text-danger"></i>
+                                        }
+                                    </td>
+
+                                    <td class="text-center">
+                                        <a href="/Admin/Episode/EditEpisode/@item.EpisodeId" class="btn btn-warning">ویرایش</a>
+                                        <a href="/Admin/Episode/DeleteEpisode/@item.EpisodeId" class="btn btn-danger">حذف</a>
+
+                                    </td>
+
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    @*<div class="row">
+
+                            @if (Model.AllUsers.Users.Count > 0)
+                            {
+                                <div class="col-sm-12 text-center">
+                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                        <ul class="pagination">
+
+                                            <li class="paginate_button previous @((Model.AllUsers.NumberPage==1)?"hidden":"")" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous">
+                                                <a href="/Admin/Users?numberPage=@(Model.AllUsers.NumberPage-1)">قبل</a>
+                                            </li>
+
+                                            @for (int i = 1; i <= Model.AllUsers.StepsForShow; i++)
+                                            {
+                                                <li class="paginate_button @((Model.AllUsers.NumberPage==i)?"active":"")" aria-controls="dataTables-example" tabindex="0">
+                                                    <a href="/Admin/Users?numberPage=@i&countShow=@ViewData["countShowInPage"]">@i</a>
+                                                </li>
+                                            }
+
+
+                                            <li class="paginate_button next  @((Model.AllUsers.StepsForShow==Model.AllUsers.NumberPage)?"hidden":"")" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next">
+                                                <a href="/Admin/Users?numberPage=@(Model.AllUsers.NumberPage+1)">بعد</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            }
+
+
+                        </div>*@
+                </div>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>

@@ -20,6 +20,7 @@ namespace TopLearn.DAL.Entities.Course
         public TimeSpan EpisodeTime { get; set; }
 
         [Display(Name = "فایل")]
+        [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public string EpisodeFileName { get; set; }
 
         [Display(Name = "رایگان")]

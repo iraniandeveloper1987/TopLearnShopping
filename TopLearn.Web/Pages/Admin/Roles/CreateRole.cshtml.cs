@@ -40,7 +40,11 @@ namespace TopLearn.Web.Pages.Admin.Roles
         public IActionResult OnPost(List<int> selectedPermission)
         {
 
-           var roleId= _roleService.AddRole(Role);
+
+            if (!ModelState.IsValid)
+                return Page();
+
+            var roleId = _roleService.AddRole(Role);
            
 
 

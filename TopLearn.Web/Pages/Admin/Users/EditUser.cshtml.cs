@@ -45,9 +45,9 @@ namespace TopLearn.Web.Pages.Admin.Users
 
         public IActionResult OnPost(List<int> SelectedRolesId)
         {
-
-
-
+            if (!ModelState.IsValid)
+                return Page();
+            
             var editResult = _userService.EdithUserFromAdmin(EditUser);
 
 

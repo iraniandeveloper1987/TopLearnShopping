@@ -86,9 +86,14 @@ namespace TopLearn.Web
             services.AddScoped<IFilterAttributeService, FilterAttributesService>();
 
             services.AddScoped<ICourseGroupService, CourseGroupService>();
+
             services.AddScoped<ICourseService, CourseService>();
+
             services.AddScoped<ICourseLevelService, CourseLevelService>();
+
             services.AddScoped<ICourseStatusService, CourseStatusService>();
+
+            services.AddScoped<ICourseEpisodeService, CourseEpisodeService>();
 
             #endregion
 

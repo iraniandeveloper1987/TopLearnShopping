@@ -1,0 +1,76 @@
+﻿@page  "{courseId}"
+@model TopLearn.Web.Pages.Admin.Episode.CreateEpisodeModel
+@{
+}
+<div class="row" style="margin-top: 30px">
+
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" value="@ViewData["CourseId"]" asp-for="CourseEpisode.CourseId"/>
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    مشخصات جلسه
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>عنوان جلسه</label>
+                    <input asp-for="CourseEpisode.EpisodeTitle" class="form-control">
+                    <span class="text-danger" asp-validation-for="CourseEpisode.EpisodeTitle"></span>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>زمان جلسه</label>
+                    <input type="text" asp-for="CourseEpisode.EpisodeTime" class="form-control">
+                    <span class="text-danger" asp-validation-for="CourseEpisode.EpisodeTime"></span>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>ویدیو جلسه</label>
+                    <input type="file" name="episodeFileUpload" class="form-control">
+                </div>
+
+                @if (ViewData["InvalidFileName"] != null)
+                {
+                    <div class="help-block alert alert-danger">
+                        <p>
+                            نام ویدیو انتخاب شده تکراری می باشد
+                        </p>
+                    </div>
+                }
+
+
+                @if (ViewData["notUploadVideoEpisode"] != null)
+                {
+                    <div class="help-block alert alert-danger">
+                        <p>
+                            حتما باید یک فایل ویدیویی برای این جلسه انتخاب کنید
+                        </p>
+                    </div>
+                }
+
+
+               
+
+                <div class="form-group" style="margin: 10px">
+                    <label>
+                        جلسه رایگان
+                    </label>
+                    <input asp-for="CourseEpisode.IsFree" type="checkbox">
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+
+                    <input class="btn btn-success" value="ذخیره اطلاعات" type="submit">
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

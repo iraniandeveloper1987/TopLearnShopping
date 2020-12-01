@@ -71,6 +71,9 @@ namespace TopLearn.Web.Pages.Admin.Course
 
         public IActionResult OnPost(IFormFile demoFileUpload, IFormFile imageCourseFileUpload)
         {
+            if (!ModelState.IsValid)
+                return Page();
+
 
             _courseService.UpdateCourse(course: Course, imageCourseFileUpload, demoFileUpload);
             return RedirectToPage("Index");

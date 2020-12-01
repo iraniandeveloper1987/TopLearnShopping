@@ -29,7 +29,7 @@ namespace TopLearn.Web.Pages.Admin.Course
 
         public IActionResult OnPost()
         {
-
+         
             _courseService.DeleteCourse(Course.Id);
 
             return RedirectToPage("Index");
