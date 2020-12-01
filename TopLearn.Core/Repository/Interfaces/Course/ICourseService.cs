@@ -18,5 +18,9 @@ namespace TopLearn.Core.Repository.Interfaces.Course
         bool UpdateCourse(DAL.Entities.Course.Course course, IFormFile courseImageUp, IFormFile demoFileUp);
 
         List<ShowCourseForAdminViewModel> GetAllCoursesForAdmin();
+
+        ShowCourseForAdminViewModel GetCourseByIdForAdmin(int courseId);
+
+        bool DeleteCourse(int id);
     }
 }

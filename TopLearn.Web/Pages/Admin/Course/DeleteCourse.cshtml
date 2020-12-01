@@ -1,0 +1,74 @@
+﻿@page  "{id}"
+@using TopLearn.Core.Convertors
+@model TopLearn.Web.Pages.Admin.Course.DeleteCourseModel
+@{
+}
+
+
+
+<div class="row">
+
+    <div class="col-lg-12">
+        <form method="post">
+
+            <div class="jumbotron">
+                <h2>
+
+                    <i class="fa fa-bell fa-fw text-danger"></i>  <span>آیا از حذف </span>  <span class="text-danger">@Model.Course.Title</span> <span>اطمینان دارید ؟</span>
+                </h2>
+                <br />
+                <br />
+                <input type="hidden" asp-for="Course.Id" />
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="form-group">
+                            <label>عنوان دوره:</label>
+                            <p class="form-control-static">@Model.Course.Title</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>مدرس دوره</label>
+                            <p class="form-control-static">@Model.Course.TeacherName</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>تصویر دوره</label>
+                            <img style="max-width: 150px" src="/images/Courses/@Model.Course.ImageName" />
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+
+                        <div class="form-group">
+                            <label>تعداد جلسات دوره :</label>
+                            <p class="form-control-static">@Model.Course.EpisodeNumber</p>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>تاریخ ثبت :</label>
+                            <p class="form-control-static">@Model.Course.RegisterDate.MiladiToShamsi()</p>
+                        </div>
+
+                        <div class="form-group">
+                            <p style="margin-top: 60px">
+                                <input type="submit" class="btn btn-danger btn-lg" value="حذف" />
+                                <a class="btn btn-primary btn-lg" href="/Admin/Course">انصراف</a>
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </form>
+    </div>
+
+</div>

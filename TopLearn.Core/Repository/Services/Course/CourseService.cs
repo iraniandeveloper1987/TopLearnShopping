@@ -238,5 +238,76 @@ namespace TopLearn.Core.Repository.Services.Course
 
                 }).ToList();
         }
+
+        public ShowCourseForAdminViewModel GetCourseByIdForAdmin(int courseId)
+        {
+            return _context.Courses.Where(c => c.CourseId == courseId).Include(c => c.User).Select(c => new ShowCourseForAdminViewModel()
+            {
+                Id = c.CourseId,
+                Title = c.CourseTitle,
+                ImageName = c.CourseImageName,
+                RegisterDate = c.CreateDate,
+                EpisodeNumber = c.CourseEpisodes.Count,
+                TeacherName = c.User.FullName
+
+
+            }).FirstOrDefault();
+        }
+
+        public bool DeleteCourse(int id)
+        {
+            try
+            {
+                var course = base.GetById(id);
+
+                #region Check Exist Main Course Image  And Delete
+
+                var mainImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Courses",
+                    course.CourseImageName);
+
+
+                if (File.Exists(mainImagePath))
+                {
+                    File.Delete(mainImagePath);
+                }
+
+                #endregion
+
+                #region Check Exist Thumbnail Course Image  And Delete
+
+                var thumbImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Courses/Thumbnail",
+                    course.CourseImageName);
+
+
+                if (File.Exists(thumbImagePath))
+                {
+                    File.Delete(thumbImagePath);
+                }
+
+                #endregion
+
+                #region Check Exist Demo Course Image  And Delete
+
+                var demoImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Courses/Demo",
+                    course.DemoFileName);
+
+
+                if (File.Exists(demoImagePath))
+                {
+                    File.Delete(demoImagePath);
+                }
+
+                #endregion
+
+                base.Delete(id);
+                _context.SaveChanges();
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
