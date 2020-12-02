@@ -28,7 +28,8 @@ namespace TopLearn.Core.Repository.Services.Course
 
         public bool AddCourseEpisode(CourseEpisode episode, IFormFile videoEpisodeUpload)
         {
-            episode.EpisodeFileName = videoEpisodeUpload.FileName ;
+
+            episode.EpisodeFileName = videoEpisodeUpload.FileName;
 
             var videoEpisodePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Videos/Episodes",
                 episode.EpisodeFileName);
@@ -50,6 +51,42 @@ namespace TopLearn.Core.Repository.Services.Course
 
             base.Add(episode);
             base.Save();
+            return true;
+        }
+
+        public bool UpdateCourseEpisode(CourseEpisode episode, IFormFile videoEpisodeUpload)
+        {
+
+
+            if (videoEpisodeUpload != null)
+            {
+
+                episode.EpisodeFileName = videoEpisodeUpload.FileName;
+
+                var videoEpisodePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Videos/Episodes",
+                    episode.EpisodeFileName);
+
+                #region Check Exist VideoEpisode  
+
+                if (File.Exists(videoEpisodePath))
+                {
+                    return false;
+                }
+
+                #endregion
+
+                #region Save Video Episode
+
+                SaveFile.SaveFile.Save(file: videoEpisodeUpload, videoEpisodePath);
+
+                #endregion
+
+
+            }
+
+            _context.Update(episode);
+            _context.SaveChanges();
+
             return true;
         }
     }

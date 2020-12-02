@@ -1,11 +1,17 @@
-﻿@page  "{courseId}"
-@model TopLearn.Web.Pages.Admin.Episode.CreateEpisodeModel
+﻿@page    "{episodeId}"
+@model TopLearn.Web.Pages.Admin.Episode.EditEpisodeModel
 @{
 }
+
+
 <div class="row" style="margin-top: 30px">
 
     <form method="post" enctype="multipart/form-data">
-        <input type="hidden" value="@ViewData["CourseId"]" asp-for="CourseEpisode.CourseId" />
+
+
+        <input type="hidden" asp-for="CourseEpisode.EpisodeId" />
+        <input type="hidden" asp-for="CourseEpisode.EpisodeFileName" />
+        <input type="hidden" asp-for="CourseEpisode.CourseId" />
         <div class="col-md-12 col-lg-12 col-sm-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -24,28 +30,23 @@
                 </div>
 
                 <div class="form-group" style="margin: 10px">
-                    <label>ویدیو جلسه</label>
+                    <label>  نام ویدیوآپلود شده  </label>
+                    <input disabled type="text" asp-for="CourseEpisode.EpisodeFileName" class="form-control">
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>انتخاب ویدیو جدید </label>
                     <input type="file" name="episodeFileUpload" class="form-control">
                 </div>
+                
 
-                @*@if (ViewData["InvalidFileName"] != null)
-                {
-                    <div class="help-block alert alert-danger">
-                        <p>
-                            نام ویدیو انتخاب شده تکراری می باشد
-                        </p>
-                    </div>
-                }
-
-
-                @if (ViewData["notUploadVideoEpisode"] != null)
-                {
-                    <div class="help-block alert alert-danger">
-                        <p>
-                            حتما باید یک فایل ویدیویی برای این جلسه انتخاب کنید
-                        </p>
-                    </div>
-                }*@
+                @*@if (ViewData["notUploadVideoEpisode"] != null)
+                    {
+                        <div class="help-block alert alert-danger">
+                            <p>
+                                حتما باید یک فایل ویدیویی برای این جلسه انتخاب کنید
+                            </p>
+                        </div>
+                    }*@
 
 
 
@@ -79,7 +80,7 @@
     {
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
         <script>
-
+            
             Swal.fire({
                 position: 'top-center',
                 icon: 'error',
@@ -89,26 +90,9 @@
             })
         </script>
     }
-    
-    
-    
-    @if (ViewData["notUploadVideoEpisode"] != null)
-    {
-       
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-        <script>
 
-            Swal.fire({
-                position: 'top-center',
-                icon: 'error',
-                title: 'حتما باید یک فایل ویدیویی برای این جلسه انتخاب کنید',
-                showConfirmButton: false,
-                timer: 3500
-            })
-        </script>
-       
-    }
 
 
 
 }
+
