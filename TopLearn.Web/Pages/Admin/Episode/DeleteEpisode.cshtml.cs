@@ -11,24 +11,28 @@ using TopLearn.DAL.Entities.Course;
 
 namespace TopLearn.Web.Pages.Admin.Episode
 {
-    [CheckPermission((int)PermissionEnum.EpisodeManagement)]
-    public class IndexModel : PageModel
+    [CheckPermission((int)PermissionEnum.DeleteEpisode)]
+    public class DeleteEpisodeModel : PageModel
     {
         private readonly ICourseEpisodeService _courseEpisodeService;
 
-        public IndexModel(ICourseEpisodeService courseEpisodeService)
+        public DeleteEpisodeModel(ICourseEpisodeService courseEpisodeService)
         {
             _courseEpisodeService = courseEpisodeService;
         }
 
         [BindProperty]
-        public List<CourseEpisode> CourseEpisodes { get; set; }
-        public void OnGet(int courseId)
+        public CourseEpisode CourseEpisode { get; set; }
+        public void OnGet(int episodeId)
         {
-            
-            CourseEpisodes= _courseEpisodeService.GetAllCourseEpisodesByCourseId(courseId);
+            CourseEpisode = _courseEpisodeService.GetById(episodeId);
+        }
 
-            ViewData["CourseId"] = courseId;
+        public IActionResult OnPost()
+        {
+            _courseEpisodeService.DeleteCourseEpisode(CourseEpisode);
+
+            return Redirect("/Admin/Episode/Index/" + CourseEpisode.CourseId);
         }
     }
 }

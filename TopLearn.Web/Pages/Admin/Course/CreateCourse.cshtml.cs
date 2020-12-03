@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using TopLearn.Core.Enums;
+using TopLearn.Core.FilterAttributes;
 using TopLearn.Core.Repository.Interfaces.Course;
 using TopLearn.DAL.Entities.Course;
 
 namespace TopLearn.Web.Pages.Admin.Course
 {
+    [CheckPermission((int)PermissionEnum.AddCourse)]
     public class CreateCourseModel : PageModel
     {
         private readonly ICourseService _courseService;

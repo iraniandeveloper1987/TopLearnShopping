@@ -89,5 +89,27 @@ namespace TopLearn.Core.Repository.Services.Course
 
             return true;
         }
+
+        public bool DeleteCourseEpisode(CourseEpisode episode)
+        {
+          
+            var videoEpisodePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Videos/Episodes",
+                episode.EpisodeFileName);
+
+            #region Check Exist VideoEpisode And Delete
+
+            if (File.Exists(videoEpisodePath))
+            {
+                File.Delete(videoEpisodePath);
+            }
+
+            #endregion
+
+            _context.CourseEpisodes.Remove(episode);
+            _context.SaveChanges();
+
+            return true;
+
+        }
     }
 }

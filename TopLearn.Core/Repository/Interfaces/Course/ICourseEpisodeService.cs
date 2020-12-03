@@ -12,8 +12,10 @@ namespace TopLearn.Core.Repository.Interfaces.Course
 
         List<CourseEpisode> GetAllCourseEpisodesByCourseId(int courseId);
 
-        bool AddCourseEpisode(CourseEpisode episode , IFormFile videoEpisodeUpload);
+        bool AddCourseEpisode(CourseEpisode episode, IFormFile videoEpisodeUpload);
 
         bool UpdateCourseEpisode(CourseEpisode episode, IFormFile videoEpisodeUpload);
+
+        bool DeleteCourseEpisode(CourseEpisode episode);
     }
 }

@@ -1,0 +1,69 @@
+﻿@page  "{episodeId}"
+@model TopLearn.Web.Pages.Admin.Episode.DeleteEpisodeModel
+@{
+
+}
+
+
+
+
+<div class="row">
+
+    <div class="col-lg-12">
+        <form method="post">
+
+            <div class="jumbotron">
+                <h2>
+
+                    <i class="fa fa-bell fa-fw text-danger"></i>  <span>آیا از حذف </span>  <span class="text-danger">@Model.CourseEpisode.EpisodeTitle</span> <span>اطمینان دارید ؟</span>
+                </h2>
+                <br />
+                <br />
+                <input type="hidden" asp-for="CourseEpisode.CourseId" />
+                <input type="hidden" asp-for="CourseEpisode.EpisodeId" />
+                <input type="hidden" asp-for="CourseEpisode.EpisodeFileName" />
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="form-group">
+                            <label>عنوان جلسه :</label>
+                            <p class="form-control-static">@Model.CourseEpisode.EpisodeTitle</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>زمان دوره</label>
+                            <p class="form-control-static">@Model.CourseEpisode.EpisodeTime</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>وضعیت جلسه</label>
+                            <br/>
+                            @if (Model.CourseEpisode.IsFree)
+                            {
+                                <span>رایگان</span>
+                            }
+                            else
+                            {
+                        <span>نقدی</span>
+                            }
+
+                         
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <p style="margin-top: 60px">
+                            <input type="submit" class="btn btn-danger btn-lg" value="حذف" />
+                            <a class="btn btn-primary btn-lg" href="/Admin/Episode/@Model.CourseEpisode.CourseId">انصراف</a>
+                        </p>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </form>
+    </div>
+
+</div>
