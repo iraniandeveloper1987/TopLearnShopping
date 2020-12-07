@@ -10,8 +10,8 @@ using TopLearn.DAL.Context;
 namespace TopLearn.DAL.Migrations
 {
     [DbContext(typeof(TopLearnContext))]
-    [Migration("20201129103920_Mig-Add IsDeleted To Course")]
-    partial class MigAddIsDeletedToCourse
+    [Migration("20201207155446_mig-InitialDb")]
+    partial class migInitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,13 +36,7 @@ namespace TopLearn.DAL.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("CourseLevelLevelId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CoursePrice")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CourseStatusStatusId")
                         .HasColumnType("int");
 
                     b.Property<string>("CourseTitle")
@@ -60,11 +54,12 @@ namespace TopLearn.DAL.Migrations
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int>("LevelId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ShortKey")
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
 
                     b.Property<int>("StatusId")
                         .HasColumnType("int");
@@ -84,11 +79,11 @@ namespace TopLearn.DAL.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.HasIndex("CourseLevelLevelId");
-
-                    b.HasIndex("CourseStatusStatusId");
-
                     b.HasIndex("GroupId");
+
+                    b.HasIndex("LevelId");
+
+                    b.HasIndex("StatusId");
 
                     b.HasIndex("SubGroup");
 
@@ -108,6 +103,7 @@ namespace TopLearn.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("EpisodeFileName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<TimeSpan>("EpisodeTime")
@@ -301,6 +297,60 @@ namespace TopLearn.DAL.Migrations
                         });
                 });
 
+            modelBuilder.Entity("TopLearn.DAL.Entities.Order.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsFinally")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("SumOrder")
+                        .HasColumnType("float");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("TopLearn.DAL.Entities.Order.OrderDetail", b =>
+                {
+                    b.Property<int>("OrderDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("OrderDetailId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDetails");
+                });
+
             modelBuilder.Entity("TopLearn.DAL.Entities.Permissions.Permission", b =>
                 {
                     b.Property<int>("PermissionId")
@@ -429,6 +479,62 @@ namespace TopLearn.DAL.Migrations
                             IsDeleted = false,
                             ParentId = 12,
                             PermissionTitle = "حذف دسترسی"
+                        },
+                        new
+                        {
+                            PermissionId = 16,
+                            IsDeleted = false,
+                            ParentId = 1,
+                            PermissionTitle = "مدیریت دوره ها"
+                        },
+                        new
+                        {
+                            PermissionId = 17,
+                            IsDeleted = false,
+                            ParentId = 16,
+                            PermissionTitle = "افزودن دوره"
+                        },
+                        new
+                        {
+                            PermissionId = 18,
+                            IsDeleted = false,
+                            ParentId = 16,
+                            PermissionTitle = "ویرایش دوره "
+                        },
+                        new
+                        {
+                            PermissionId = 19,
+                            IsDeleted = false,
+                            ParentId = 16,
+                            PermissionTitle = "حذف دوره "
+                        },
+                        new
+                        {
+                            PermissionId = 20,
+                            IsDeleted = false,
+                            ParentId = 1,
+                            PermissionTitle = "مدیریت جلسه ها"
+                        },
+                        new
+                        {
+                            PermissionId = 21,
+                            IsDeleted = false,
+                            ParentId = 20,
+                            PermissionTitle = "افزایش جلسه "
+                        },
+                        new
+                        {
+                            PermissionId = 22,
+                            IsDeleted = false,
+                            ParentId = 20,
+                            PermissionTitle = "ویرایش جلسه "
+                        },
+                        new
+                        {
+                            PermissionId = 23,
+                            IsDeleted = false,
+                            ParentId = 20,
+                            PermissionTitle = "حذف جلسه"
                         });
                 });
 
@@ -542,6 +648,54 @@ namespace TopLearn.DAL.Migrations
                         {
                             RolePermissionId = 15,
                             PermissionId = 15,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RolePermissionId = 16,
+                            PermissionId = 16,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RolePermissionId = 17,
+                            PermissionId = 17,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RolePermissionId = 18,
+                            PermissionId = 18,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RolePermissionId = 19,
+                            PermissionId = 19,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RolePermissionId = 20,
+                            PermissionId = 20,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RolePermissionId = 21,
+                            PermissionId = 21,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RolePermissionId = 22,
+                            PermissionId = 22,
+                            RoleId = 1
+                        },
+                        new
+                        {
+                            RolePermissionId = 23,
+                            PermissionId = 23,
                             RoleId = 1
                         });
                 });
@@ -695,7 +849,7 @@ namespace TopLearn.DAL.Migrations
                             IsDeleted = false,
                             Mobile = "09198948580",
                             Password = "20-2C-B9-62-AC-59-07-5B-96-4B-07-15-2D-23-4B-70",
-                            RegisterDate = new DateTime(2020, 11, 29, 14, 9, 19, 678, DateTimeKind.Local).AddTicks(3566),
+                            RegisterDate = new DateTime(2020, 12, 7, 19, 24, 45, 677, DateTimeKind.Local).AddTicks(5085),
                             UserAvatar = "Default.jpg",
                             UserName = "admin"
                         });
@@ -771,18 +925,22 @@ namespace TopLearn.DAL.Migrations
 
             modelBuilder.Entity("TopLearn.DAL.Entities.Course.Course", b =>
                 {
-                    b.HasOne("TopLearn.DAL.Entities.Course.CourseLevel", "CourseLevel")
-                        .WithMany("Courses")
-                        .HasForeignKey("CourseLevelLevelId");
-
-                    b.HasOne("TopLearn.DAL.Entities.Course.CourseStatus", "CourseStatus")
-                        .WithMany("Courses")
-                        .HasForeignKey("CourseStatusStatusId");
-
                     b.HasOne("TopLearn.DAL.Entities.Course.CourseGroup", "CourseGroup")
                         .WithMany("Courses")
                         .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TopLearn.DAL.Entities.Course.CourseLevel", "CourseLevel")
+                        .WithMany("Courses")
+                        .HasForeignKey("LevelId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TopLearn.DAL.Entities.Course.CourseStatus", "CourseStatus")
+                        .WithMany("Courses")
+                        .HasForeignKey("StatusId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TopLearn.DAL.Entities.Course.CourseGroup", "SubCourseGroup")
@@ -792,7 +950,7 @@ namespace TopLearn.DAL.Migrations
                     b.HasOne("TopLearn.DAL.Entities.User", "User")
                         .WithMany("Courses")
                         .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -801,7 +959,7 @@ namespace TopLearn.DAL.Migrations
                     b.HasOne("TopLearn.DAL.Entities.Course.Course", "Course")
                         .WithMany("CourseEpisodes")
                         .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -810,6 +968,30 @@ namespace TopLearn.DAL.Migrations
                     b.HasOne("TopLearn.DAL.Entities.Course.CourseGroup", null)
                         .WithMany("CourseGroups")
                         .HasForeignKey("ParentId");
+                });
+
+            modelBuilder.Entity("TopLearn.DAL.Entities.Order.Order", b =>
+                {
+                    b.HasOne("TopLearn.DAL.Entities.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TopLearn.DAL.Entities.Order.OrderDetail", b =>
+                {
+                    b.HasOne("TopLearn.DAL.Entities.Course.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TopLearn.DAL.Entities.Order.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TopLearn.DAL.Entities.Permissions.Permission", b =>
@@ -824,13 +1006,13 @@ namespace TopLearn.DAL.Migrations
                     b.HasOne("TopLearn.DAL.Entities.Permissions.Permission", "Permission")
                         .WithMany("RolePermissions")
                         .HasForeignKey("PermissionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TopLearn.DAL.Entities.Role", "Role")
                         .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -839,13 +1021,13 @@ namespace TopLearn.DAL.Migrations
                     b.HasOne("TopLearn.DAL.Entities.Role", "Role")
                         .WithMany("RoleUsers")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TopLearn.DAL.Entities.User", "User")
                         .WithMany("RoleUsers")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -854,13 +1036,13 @@ namespace TopLearn.DAL.Migrations
                     b.HasOne("TopLearn.DAL.Entities.User", "User")
                         .WithMany("Wallets")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("TopLearn.DAL.Entities.WalletType", "WalletType")
                         .WithMany("Wallets")
                         .HasForeignKey("WalletTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

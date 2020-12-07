@@ -33,8 +33,8 @@
 
                     <h2> سرفصل های این دوره : </h2>
                     <ul>
-                        
-                        
+
+
                         @foreach (var item in Model.CourseEpisodes)
                         {
                             <li>
@@ -45,7 +45,7 @@
                                 <span>@item.EpisodeTime</span>
                             </li>
                         }
-                     
+
 
                     </ul>
                 </section>
@@ -189,13 +189,13 @@
                         </li>
                     </ul>
 
-                    <a href=""> شرکت در دوره : @Model.CoursePrice.ToString("#,0") تومان </a>
+                    <a href="/UserPanel/Order/AddOrder/@Model.CourseId"> شرکت در دوره : @Model.CoursePrice.ToString("#,0") تومان </a>
                 </div>
 
                 <article class="teacher-info">
                     <img src="/images/Users/UserAvatar/@Model.User.UserAvatar">
                     <h2> مدرس : @Model.User.FullName </h2>
-                   
+
                 </article>
 
                 <article class="term-info">
@@ -209,7 +209,7 @@
                         {
                             <li>آخرین بروزرسانی دوره : @Model.UpdateDate?.MiladiToShamsi() </li>
                         }
-                       
+
                     </ul>
                 </article>
 
@@ -226,7 +226,7 @@
                     {
                         <a href="/Course/Index?filter=@item"> @item </a>
                     }
-                   
+
 
                 </div>
 

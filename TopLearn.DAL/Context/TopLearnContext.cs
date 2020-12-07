@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Xml.Serialization;
 using Microsoft.EntityFrameworkCore;
 using TopLearn.DAL.Entities;
 using TopLearn.DAL.Entities.Course;
+using TopLearn.DAL.Entities.Order;
 using TopLearn.DAL.Entities.Permissions;
 
 namespace TopLearn.DAL.Context
@@ -35,10 +37,19 @@ namespace TopLearn.DAL.Context
         public DbSet<RolePermission> RolePermissions { get; set; }
 
         public DbSet<CourseGroup> CourseGroups { get; set; }
+
         public DbSet<CourseLevel> CourseLevels { get; set; }
+
         public DbSet<CourseStatus> CourseStatuses { get; set; }
+
         public DbSet<CourseEpisode> CourseEpisodes { get; set; }
+
         public DbSet<Course> Courses { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
         #endregion
 
 
@@ -46,6 +57,17 @@ namespace TopLearn.DAL.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            #region Disable Cascade Delete
+
+            var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetForeignKeys())
+                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            foreach (var fk in cascadeFKs)
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+
+            #endregion
 
             #region SeedForUser
 
@@ -71,11 +93,11 @@ namespace TopLearn.DAL.Context
             #region SeedForRole
 
             modelBuilder.Entity<Role>().HasData(new Role()
-                {
-                    RoleId = 1,
-                    RoleName = "admin",
-                    Description = "مدیر سایت"
-                },
+            {
+                RoleId = 1,
+                RoleName = "admin",
+                Description = "مدیر سایت"
+            },
                 new Role()
                 {
                     RoleId = 2,
@@ -110,15 +132,15 @@ namespace TopLearn.DAL.Context
             });
 
             #endregion
-            
+
             #region SeedWalleType
 
             modelBuilder.Entity<WalletType>().HasData(new WalletType()
-                {
-                    WalletTypeId = 1,
-                    Title = "deposit",
-                    Description = "واریز"
-                },
+            {
+                WalletTypeId = 1,
+                Title = "deposit",
+                Description = "واریز"
+            },
                 new WalletType()
                 {
                     WalletTypeId = 2,
@@ -212,6 +234,46 @@ namespace TopLearn.DAL.Context
                   PermissionId = 15,
                   PermissionTitle = "حذف دسترسی",
                   ParentId = 12
+              }, new Permission()
+              {
+                  PermissionId = 16,
+                  PermissionTitle = "مدیریت دوره ها",
+                  ParentId = 1
+              }, new Permission()
+              {
+                  PermissionId = 17,
+                  PermissionTitle = "افزودن دوره",
+                  ParentId = 16
+              }, new Permission()
+              {
+                  PermissionId = 18,
+                  PermissionTitle = "ویرایش دوره ",
+                  ParentId = 16
+              }, new Permission()
+              {
+                  PermissionId = 19,
+                  PermissionTitle = "حذف دوره ",
+                  ParentId = 16
+              }, new Permission()
+              {
+                  PermissionId = 20,
+                  PermissionTitle = "مدیریت جلسه ها",
+                  ParentId = 1
+              }, new Permission()
+              {
+                  PermissionId = 21,
+                  PermissionTitle = "افزایش جلسه ",
+                  ParentId = 20
+              }, new Permission()
+              {
+                  PermissionId = 22,
+                  PermissionTitle = "ویرایش جلسه ",
+                  ParentId = 20
+              }, new Permission()
+              {
+                  PermissionId = 23,
+                  PermissionTitle = "حذف جلسه",
+                  ParentId = 20
               });
 
 
@@ -322,6 +384,62 @@ namespace TopLearn.DAL.Context
                RolePermissionId = 15,
                RoleId = 1,
                PermissionId = 15
+
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 16,
+               RoleId = 1,
+               PermissionId = 16
+
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 17,
+               RoleId = 1,
+               PermissionId = 17
+
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 18,
+               RoleId = 1,
+               PermissionId = 18
+
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 19,
+               RoleId = 1,
+               PermissionId = 19
+
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 20,
+               RoleId = 1,
+               PermissionId = 20
+
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 21,
+               RoleId = 1,
+               PermissionId = 21
+
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 22,
+               RoleId = 1,
+               PermissionId = 22
+
+           },
+           new RolePermission()
+           {
+               RolePermissionId = 23,
+               RoleId = 1,
+               PermissionId = 23
 
            });
 

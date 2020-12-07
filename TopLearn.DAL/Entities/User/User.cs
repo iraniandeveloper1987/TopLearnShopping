@@ -68,7 +68,7 @@ namespace TopLearn.DAL.Entities
 
         public bool IsDeleted { get; set; }
 
-        
+
         #region Navigation Properties
 
         public virtual List<RoleUser> RoleUsers { get; set; }
@@ -77,7 +77,9 @@ namespace TopLearn.DAL.Entities
 
         public virtual List<Course.Course> Courses { get; set; }
 
-      
+        public virtual List<Order.Order> Orders { get; set; }
+
+
         #endregion
 
     }

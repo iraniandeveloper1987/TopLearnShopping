@@ -17,6 +17,7 @@ using TopLearn.Core.messaging.Services;
 using TopLearn.Core.Repository.Interfaces;
 using TopLearn.Core.Repository.Interfaces.Course;
 using TopLearn.Core.Repository.Interfaces.FilterAttributes;
+using TopLearn.Core.Repository.Interfaces.Order;
 using TopLearn.Core.Repository.Interfaces.Permission;
 using TopLearn.Core.Repository.Interfaces.Role;
 using TopLearn.Core.Repository.Interfaces.User;
@@ -24,6 +25,7 @@ using TopLearn.Core.Repository.Interfaces.Wallet;
 using TopLearn.Core.Repository.Services;
 using TopLearn.Core.Repository.Services.Course;
 using TopLearn.Core.Repository.Services.FilterAttributes;
+using TopLearn.Core.Repository.Services.Order;
 using TopLearn.Core.Repository.Services.Permission;
 using TopLearn.Core.Services;
 using TopLearn.DAL.Context;
@@ -52,7 +54,7 @@ namespace TopLearn.Web
             //});
 
             #endregion
-            
+
             #region  DataBase Context
 
             services.AddDbContext<TopLearnContext>(options =>
@@ -94,6 +96,11 @@ namespace TopLearn.Web
             services.AddScoped<ICourseStatusService, CourseStatusService>();
 
             services.AddScoped<ICourseEpisodeService, CourseEpisodeService>();
+
+            services.AddScoped<IOrderService, OrderService>();
+
+            services.AddScoped<IOrderDetailService, OrderDetailService>();
+
 
             #endregion
 
