@@ -4,11 +4,12 @@
 <html class="no-js" dir="rtl" lang="fa-IR">
 <head>
     <meta charset="UTF-8">
-    <title>@ViewBag.Title</title>
+    <title>@ViewData["Title"]</title>
 
     <partial name="_MetaTags" />
     <partial name="_Styles" />
     <script src="/js/jquery.min.js"></script>
+
     @RenderSection("Styles", false)
 
 </head>

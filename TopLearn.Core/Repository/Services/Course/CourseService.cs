@@ -309,5 +309,111 @@ namespace TopLearn.Core.Repository.Services.Course
 
             return true;
         }
+
+        public Tuple<List<ShowCourseListItemViewModel>, int> GetCourses(int pageId = 1, string filter = "", string getType = "all", string orderByType = "newDate",
+            int minPrice = 0, int maxPrice = 0, List<int> selectedGroups = null, int take = 8)
+        {
+
+
+            IQueryable<DAL.Entities.Course.Course> query = _context.Courses;
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                query = query.Where(c => c.CourseTitle.Contains(filter) || c.Tags.Contains(filter));
+            }
+
+            if (!string.IsNullOrEmpty(getType))
+            {
+                switch (getType)
+                {
+                    case "all":
+                        break;
+
+                    case "buy":
+                        query = query.Where(c => c.CoursePrice > 0);
+                        break;
+
+                    case "free":
+                        query = query.Where(c => c.CoursePrice == 0);
+                        break;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(orderByType))
+            {
+                switch (orderByType)
+                {
+                    case "newDate":
+                        query = query.OrderByDescending(c => c.CreateDate);
+                        break;
+
+                    case "cheep":
+                        query = query.OrderByDescending(c => c.CoursePrice);
+                        break;
+
+
+                }
+            }
+
+            if (minPrice > 0)
+            {
+                query = query.Where(c => c.CoursePrice > minPrice);
+            }
+
+            if (maxPrice > 0)
+            {
+                query = query.Where(c => c.CoursePrice < maxPrice);
+            }
+
+            if (selectedGroups?.Any() == true)
+            {
+                foreach (var groupId in selectedGroups)
+                {
+                    query = query.Where(c => c.GroupId == groupId || c.SubGroup == groupId);
+                }
+            }
+
+
+            var skip = (pageId - 1) * take;
+
+
+            //var showCourseListItem = query.Include(c => c.CourseEpisodes)
+            //    .Select(c => new ShowCourseListItemViewModel()
+            //    {
+            //        CourseId = c.CourseId,
+            //        Title = c.CourseTitle,
+            //        Price = c.CoursePrice,
+            //        ImageName = c.CourseImageName,
+            //        TotalTime = new TimeSpan(c.CourseEpisodes.Sum(e => e.EpisodeTime.Ticks))
+            //    });
+
+
+            query = query.Include(c => c.CourseEpisodes);
+
+            var pageCount = query.Count() / take;
+
+            var result = query.Skip(skip).Take(take).ToList();
+
+            var listItem = result.Select(c => new ShowCourseListItemViewModel()
+            {
+                CourseId = c.CourseId,
+                Title = c.CourseTitle,
+                Price = c.CoursePrice,
+                ImageName = c.CourseImageName,
+                TotalTime = new TimeSpan(c.CourseEpisodes.Sum(e => e.EpisodeTime.Ticks))
+            }).ToList();
+
+            return Tuple.Create(listItem, pageCount);
+
+        }
+
+        public DAL.Entities.Course.Course GetCourseById(int courseId)
+        {
+            return _context.Courses.Include(c => c.CourseEpisodes)
+                .Include(c => c.CourseStatus).Include(c => c.CourseLevel)
+                .Include(c => c.User)
+                .FirstOrDefault(c => c.CourseId == courseId);
+
+        }
     }
 }

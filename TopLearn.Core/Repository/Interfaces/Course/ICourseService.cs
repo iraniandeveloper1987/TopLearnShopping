@@ -23,6 +23,11 @@ namespace TopLearn.Core.Repository.Interfaces.Course
 
         bool DeleteCourse(int id);
 
-      
+        Tuple<List<ShowCourseListItemViewModel>, int> GetCourses(int pageId = 1, string filter = ""
+            , string getType = "all", string orderByType = "newDate",
+            int minPrice = 0, int maxPrice = 0, List<int> selectedGroups = null, int take = 8);
+
+        DAL.Entities.Course.Course GetCourseById(int courseId);
+
     }
 }

@@ -1,0 +1,265 @@
+﻿
+@{
+    ViewData["Title"] = "لیست دوره ها";
+}
+
+@using TopLearn.Core.DTOs.AccountViewModels;
+@using TopLearn.DAL.Entities.Course
+
+@model Tuple<List<TopLearn.Core.DTOs.Admin.Course.ShowCourseListItemViewModel>, int>
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">تاپ لرن</a></li>
+            <li class="breadcrumb-item active"><a href="/Course">دوره ها</a></li>
+            @*<li class="breadcrumb-item active" aria-current="page"> برنامه نویسی وب </li>*@
+        </ul>
+    </nav>
+</div>
+
+
+<div class="container">
+
+    <section class="term-categories">
+        <form id="formFilter" asp-controller="Course" asp-action="Index" method="get">
+
+            <div class="top-bar">
+
+                <header><h1> دوره های <span>موجود در وب سایت </span> </h1> <span> @Model.Item1.Count دوره </span></header>
+
+                <div class="row">
+
+
+                    <div class="col-md-4 col-sm-12 col-xs-12 pull-right">
+
+                        <input type="hidden" id="pageid" name="pageId" value="@ViewData["pageId"].ToString()" />
+                        <div class="input">
+                            <input class="input-search-course" type="text" name="" placeholder="موضوع مورد نظر ...">
+                            <button class="button-search-course"><i class="zmdi zmdi-search"></i></button>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 pull-right">
+                        <div class="switch-field available">
+                            <input id="available-filter-1" name="getType" value="all" checked="" type="radio">
+                            <label for="available-filter-1"> همه </label>
+                            <input id="available-filter-2" name="getType" value="buy" type="radio">
+                            <label for="available-filter-2"> خریدنی </label>
+                            <input id="available-filter-3" name="getType" value="free" type="radio">
+                            <label for="available-filter-3"> رایگان </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12 pull-left">
+                        <div class="select-ddl">
+                            <select name="orderByType">
+                                @*<option> مرتب سازی </option>*@
+                                <option value="cheep">ارزانترین </option>
+                                <option value="newDate"> جدید ترین </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <aside class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+
+                    <section class="aside-section filter-by-price">
+                        <header>
+                            <h3> فیلتر بر اساس قیمت </h3>
+                        </header>
+                        <div class="price-range">
+                            <input type="hidden" value="" id="min-value" name="minPrice">
+                            <input type="hidden" value="" id="max-value" name="maxPrice">
+                            <div class="price-bar">
+                                <div id="priceFilter"></div>
+                            </div>
+                            <div class="max-price">تا <span id="max-text">500000</span> تومان</div>
+                            <div class="min-price">از <span id="min-text">20000</span> تومان</div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </section>
+
+                    <section class="aside-section filter-by-category">
+                        <header><h3> دسته بندی موضوعات </h3></header>
+                        <div class="inner">
+
+                            @{
+                                var courseGroups = ViewData["Groups"] as List<CourseGroup>;
+
+                                var selectedGroup = ViewData["SelectedGroup"] as List<int>;
+                            }
+
+                            <ul>
+
+                                @foreach (var mainItem in courseGroups.Where(g => g.ParentId == null).ToList())
+                                {
+                                    <li>
+                                        <input  @((selectedGroup.Any(s=>s==mainItem.GroupId)?"checked":"")) type="checkbox" name="selectedGroups" value="@mainItem.GroupId" id="cat-1">
+                                        <label for="cat-1"> <b>@mainItem.GroupTitle</b>  </label>
+
+                                        @if (courseGroups.Any(g => g.ParentId == mainItem.GroupId))
+                                        {
+                                    <ul>
+
+                                        @foreach (var sub in courseGroups.Where(g => g.ParentId == mainItem.GroupId))
+                                        {
+                                            <li>
+                                                <input @((selectedGroup.Any(s => s == sub.GroupId) ? "checked" : "")) type="checkbox" name="selectedGroups" value="@sub.GroupId" id="cat-1">
+                                                <label for="cat-1"> @sub.GroupTitle </label>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                        }
+
+                                    </li>
+                                }
+
+
+                            </ul>
+                        </div>
+                    </section>
+
+                </aside>
+
+                <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
+
+                    <section class="terms-items">
+                        <div class="row">
+
+                            @foreach (var item in Model.Item1)
+                            {
+                                <!-- col -->
+                                <partial name="CourseItem" model="@item" />
+                                <!-- /col -->
+
+                            }
+
+                        </div>
+
+                        @if (Model.Item2 >= 1)
+                        {
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li onclick="PreviousPage()" class="page-item @(((int)ViewData["pageId"]==1) ? "hidden" :"")">
+                                        <a class="page-link" href="#" aria-label="قبلی">
+                                            <span aria-hidden="true"><i class="zmdi zmdi-chevron-right"></i></span>
+                                        </a>
+                                    </li>
+                                    @for (int i = 1; i <= (int)Model.Item2; i++)
+                                    {
+                                        <li class="page-item @((int)ViewData["PageId"]==i ? "active" : "")"><a class="page-link" onclick="changePage(@i)" href="#">@i</a></li>
+
+                                    }
+                                    <li onclick="NextPage()" class="page-item  @(((int)ViewData["pageId"]==Model.Item2) ? "hidden" :"")">
+                                        <a class="page-link" href="#" aria-label="بعدی">
+                                            <span aria-hidden="true"><i class="zmdi zmdi-chevron-left"></i></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        }
+
+
+                    </section>
+
+                </div>
+            </div>
+
+        </form>
+    </section>
+
+</div>
+
+@section Scripts
+{
+    <script src="/noUiSlider/nouislider.min.js"></script>
+    <script src="/js/script.js"></script>
+    <script type="text/javascript">
+
+        function changePage(pageid) {
+            $("#pageid").val(pageid);
+            $("#formFilter").submit();
+        }
+
+
+        function PreviousPage() {
+            $("#pageid").val( @((int)@ViewData["PageId"] - 1 ));
+            $("#formFilter").submit();
+        }
+
+        function NextPage() {
+            $("#pageid").val( @((int)@ViewData["PageId"] + 1 ));
+            $("#formFilter").submit();
+        }
+
+
+        $(function() {
+
+            var slider = document.getElementById('priceFilter');
+            noUiSlider.create(slider,
+                {
+                    start: [20000, 100000],
+                    step: 5000,
+                    connect: true,
+                    direction: 'rtl',
+                    range: {
+                        'min': 20000,
+                        'max': 100000
+                    }
+                });
+
+            var marginMin = document.getElementById('min-text'),
+                marginMax = document.getElementById('max-text');
+
+            slider.noUiSlider.on('update',
+                function(values, handle) {
+                    var xvalue = Math.round(values[handle]);
+                    if (handle) {
+                        marginMax.innerHTML = xvalue;
+                    } else {
+                        marginMin.innerHTML = xvalue;
+                    }
+                    //console.log(values[handle]);
+                });
+
+            slider.noUiSlider.on('change',
+                function(values, handle) {
+                    var xvalue = Math.round(values[handle]);
+                    if (handle) {
+                        // setGetParameter('max_price', xvalue);
+                        $('#max-value').val(xvalue);
+                    } else {
+                        // setGetParameter('min_price', xvalue);
+                        $('#min-value').val(xvalue);
+                    }
+                });
+
+
+            slider.noUiSlider.on('slide',
+                function(values, handle) {
+
+                    console.log(values[0]);
+                    console.log(values[1]);
+
+                    var xvalue = Math.round(values[handle]);
+                    //updateSliderRange( Math.round(values[0]), Math.round(values[1]) );
+                });
+
+
+            function updateSliderRange(min, max) {
+                slider.noUiSlider.updateOptions({
+                    range: {
+                        'min': min,
+                        'max': max
+                    }
+                });
+            }
+        });
+    </script>
+}

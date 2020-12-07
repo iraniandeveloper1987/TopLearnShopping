@@ -61,19 +61,24 @@ namespace TopLearn.DAL.Entities.Course
         #region Relations (Navigation Properties)
 
         [ForeignKey("TeacherId")]
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         [ForeignKey("GroupId")]
-        public CourseGroup CourseGroup { get; set; }
+        public virtual CourseGroup CourseGroup { get; set; }
 
         [ForeignKey("SubGroup")]
-        public CourseGroup SubCourseGroup { get; set; }
+        public virtual CourseGroup SubCourseGroup { get; set; }
 
-        public CourseStatus CourseStatus { get; set; }
 
-        public CourseLevel CourseLevel { get; set; }
+        [ForeignKey("StatusId")] 
+        public virtual CourseStatus CourseStatus { get; set; }
 
-        public List<CourseEpisode> CourseEpisodes { get; set; }
+
+        [ForeignKey("LevelId")]
+        public virtual CourseLevel CourseLevel { get; set; }
+
+        
+        public virtual List<CourseEpisode> CourseEpisodes { get; set; }
 
 
         #endregion
