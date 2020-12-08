@@ -11,7 +11,11 @@ namespace TopLearn.Core.Repository.Interfaces.Order
 
         double UpdateSumOrder(int orderId);
 
-        DAL.Entities.Order.Order GetOrderUserPanel(int orderId , string userName);
+        DAL.Entities.Order.Order GetOrderUserPanel(int orderId, string userName);
+
+        List<DAL.Entities.Order.Order> GetAllOrdersByUserName(string userName);
+
+        bool FinallyOrder(int orderId , string userName);
 
     }
 }

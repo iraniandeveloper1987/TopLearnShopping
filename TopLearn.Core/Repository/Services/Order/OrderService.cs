@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using TopLearn.Core.Enums;
 using TopLearn.Core.Repository.Interfaces.Order;
 using TopLearn.Core.Repository.Interfaces.User;
+using TopLearn.Core.Repository.Interfaces.Wallet;
 using TopLearn.Core.Services.ServiceBase;
 using TopLearn.DAL.Context;
+using TopLearn.DAL.Entities;
 using TopLearn.DAL.Entities.Order;
 
 namespace TopLearn.Core.Repository.Services.Order
@@ -15,11 +18,13 @@ namespace TopLearn.Core.Repository.Services.Order
     {
         private readonly TopLearnContext _context;
         private readonly IUserService _userService;
+        private readonly IWalletService _walletService;
 
-        public OrderService(TopLearnContext context, IUserService userService) : base(context)
+        public OrderService(TopLearnContext context, IUserService userService, IWalletService walletService) : base(context)
         {
             _context = context;
             _userService = userService;
+            _walletService = walletService;
         }
 
         public int AddOrder(string userName, int courseId)
@@ -106,6 +111,52 @@ namespace TopLearn.Core.Repository.Services.Order
                 .FirstOrDefault(o => o.UserId == userId && o.OrderId == orderId);
         }
 
+        public List<DAL.Entities.Order.Order> GetAllOrdersByUserName(string userName)
+        {
+            var userId = _userService.GetUserIdByUserName(userName);
+            return _context.Orders.Where(o => o.UserId == userId).ToList();
+        }
 
+        public bool FinallyOrder(int orderId, string userName)
+        {
+            var userId = _userService.GetUserIdByUserName(userName);
+
+            var order = _context.Orders.FirstOrDefault(o => o.UserId == userId && o.OrderId == orderId);
+
+            if (order == null)
+            {
+                return false;
+            }
+
+            var walletBalance = _walletService.AccountBalance(userName);
+
+            if (order.SumOrder > walletBalance)
+            {
+                return false;
+            }
+
+
+            order.IsFinally = true;
+            base.Update(order);
+            base.Save();
+
+            #region Withdraw from Wallet (برداشت)
+
+            _walletService.AddWallet(new Wallet()
+            {
+                Amount = Convert.ToInt32(order.SumOrder),
+                IsPay = true,
+                RegisterDate = DateTime.Now,
+                UserId = userId,
+                WalletTypeId = (int)TransactionType.Withdraw,
+                Description = $"فاکتور شماره  {order.OrderId} # "
+            });
+            _walletService.Save();
+
+            #endregion
+
+
+            return true;
+        }
     }
 }

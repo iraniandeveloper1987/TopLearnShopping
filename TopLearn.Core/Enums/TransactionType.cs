@@ -6,7 +6,7 @@ namespace TopLearn.Core.Enums
 {
     public enum TransactionType
     {
-        Deposit = 1,
-        Withdraw = 2
+        Deposit = 1, // واریز
+        Withdraw = 2 // برداشت
     }
 }

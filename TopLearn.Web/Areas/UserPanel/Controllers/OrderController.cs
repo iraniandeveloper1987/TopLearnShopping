@@ -17,6 +17,7 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
 
         public OrderController(IOrderService orderService)
         {
+
             _orderService = orderService;
         }
 
@@ -29,7 +30,7 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
         }
 
 
-        public IActionResult ShowOrder(int id, bool finaly = false)
+        public IActionResult ShowOrder(int id, bool finaly = false, bool error = false)
         {
             var userName = User.Identity.Name;
 
@@ -41,16 +42,28 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
             }
 
             ViewData["finally"] = finaly;
+            ViewData["Error"] = error;
 
 
             return View(order);
         }
 
-
-        public IActionResult FinalyOrder(int id)
+        public IActionResult Index()
         {
+            var model = _orderService.GetAllOrdersByUserName(User.Identity.Name);
+            return View(model);
+        }
 
-            return Redirect("/UserPanel/ShowOrder/" + id + "?finaly=true");
+
+        public IActionResult FinallyOrder(int id)
+        {
+            var result = _orderService.FinallyOrder(id, User.Identity.Name);
+            if (!result)
+            {
+                return Redirect("/UserPanel/Order/ShowOrder/" + id + "?finaly=true&error=true");
+            }
+
+            return Redirect("/UserPanel/Order/ShowOrder/" + id + "?finaly=true");
         }
     }
 }

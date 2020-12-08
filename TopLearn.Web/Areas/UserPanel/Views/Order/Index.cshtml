@@ -1,0 +1,86 @@
+﻿@using TopLearn.Core.Services.Interfaces
+@using TopLearn.Core.Repository.Interfaces.User
+@using TopLearn.Core.Repository.Interfaces.Wallet
+@using TopLearn.Core.Convertors
+@model List<TopLearn.DAL.Entities.Order.Order>
+
+
+
+@{
+    ViewData["Title"] = "نمایش همه سفارش های من";
+    
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">تاپ لرن</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> نمایش همه  سفارش ها </li>
+        </ul>
+    </nav>
+</div>
+
+<main>
+    <div class="container">
+        <div class="user-account">
+            <div class="row">
+                <partial name="_SideBarUserPanel" />
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <section class="user-account-content">
+                        <header><h1> نمایش همه  سفارش ها </h1></header>
+                        @if (ViewBag.finaly == true)
+                        {
+                            <div class="alert alert-success">
+                                فاکتور با موفقیت پرداخت گردید
+                            </div>
+                        }
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">شماره فاکتور</th>
+                                    <th class="text-center">مجموع فاکتور</th>
+                                    <th class="text-center">تاریخ فاکتور</th>
+                                    <th class="text-center">وضعیت پرداخت</th>
+                                    <th class="text-center">دستورات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                           @item.OrderId
+                                        </td>
+                                        <td class="text-center">
+                                            @item.SumOrder.ToString("#,0 تومان")
+                                        </td>
+                                        <td class="text-center">@item.CreateDate.MiladiToShamsi()</td>
+                                        <td class="text-center">
+                                            @if (item.IsFinally)
+                                            {
+                                                <span class="text-success">
+                                                    <b>پرداخت شده</b>
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-danger">
+                                                    <b>پرداخت نشده</b>
+                                                </span>
+                                            }
+
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-primary" href="/UserPanel/Order/ShowOrder/@item.OrderId">جزییات سفارش</a>
+                                        </td>
+                                    </tr>
+                                }
+                             
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
