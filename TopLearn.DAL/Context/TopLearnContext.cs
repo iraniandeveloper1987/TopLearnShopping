@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using Microsoft.EntityFrameworkCore;
 using TopLearn.DAL.Entities;
 using TopLearn.DAL.Entities.Course;
+using TopLearn.DAL.Entities.Discount;
 using TopLearn.DAL.Entities.Order;
 using TopLearn.DAL.Entities.Permissions;
 
@@ -49,6 +50,12 @@ namespace TopLearn.DAL.Context
         public DbSet<Order> Orders { get; set; }
 
         public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        public DbSet<Discount> Discounts { get; set; }
+
+        public DbSet<UserDiscount> UserDiscounts { get; set; }
+
+
 
         #endregion
 

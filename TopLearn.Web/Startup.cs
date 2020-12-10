@@ -16,6 +16,7 @@ using TopLearn.Core.messaging.Interfaces;
 using TopLearn.Core.messaging.Services;
 using TopLearn.Core.Repository.Interfaces;
 using TopLearn.Core.Repository.Interfaces.Course;
+using TopLearn.Core.Repository.Interfaces.Discount;
 using TopLearn.Core.Repository.Interfaces.FilterAttributes;
 using TopLearn.Core.Repository.Interfaces.Order;
 using TopLearn.Core.Repository.Interfaces.Permission;
@@ -24,6 +25,7 @@ using TopLearn.Core.Repository.Interfaces.User;
 using TopLearn.Core.Repository.Interfaces.Wallet;
 using TopLearn.Core.Repository.Services;
 using TopLearn.Core.Repository.Services.Course;
+using TopLearn.Core.Repository.Services.Discount;
 using TopLearn.Core.Repository.Services.FilterAttributes;
 using TopLearn.Core.Repository.Services.Order;
 using TopLearn.Core.Repository.Services.Permission;
@@ -100,6 +102,11 @@ namespace TopLearn.Web
             services.AddScoped<IOrderService, OrderService>();
 
             services.AddScoped<IOrderDetailService, OrderDetailService>();
+
+            services.AddScoped<IDiscountService, DiscountService>();
+
+            services.AddScoped<IUserDiscountService, UserDiscountService>();
+
 
 
             #endregion

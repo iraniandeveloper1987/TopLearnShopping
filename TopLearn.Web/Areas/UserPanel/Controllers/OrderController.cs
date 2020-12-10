@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using TopLearn.Core.Enums;
 using TopLearn.Core.Repository.Interfaces.Course;
 using TopLearn.Core.Repository.Interfaces.Order;
 
@@ -30,7 +31,8 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
         }
 
 
-        public IActionResult ShowOrder(int id, bool finaly = false, bool error = false)
+
+        public IActionResult ShowOrder(int id, bool finaly = false, bool error = false, DiscountStatusEnum disCountStatus=DiscountStatusEnum.None )
         {
             var userName = User.Identity.Name;
 
@@ -41,6 +43,7 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
                 return NotFound();
             }
 
+            ViewData["disCountStatus"] = disCountStatus;
             ViewData["finally"] = finaly;
             ViewData["Error"] = error;
 
