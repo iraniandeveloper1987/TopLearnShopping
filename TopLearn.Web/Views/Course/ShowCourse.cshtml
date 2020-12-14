@@ -1,9 +1,21 @@
 ﻿
 @using Microsoft.EntityFrameworkCore
 @using TopLearn.Core.Convertors
+@using TopLearn.Core.Repository.Interfaces.Course
 @model TopLearn.DAL.Entities.Course.Course
+
+@inject IUserCourseService UserCourseServise
+
 @{
     ViewData["Title"] = Model.CourseTitle;
+
+    bool isUserInCourse = false;
+
+    if (User.Identity.IsAuthenticated)
+    {
+        isUserInCourse = UserCourseServise.IsExistUserInCourse(User.Identity.Name, Model.CourseId);
+    }
+
 
 }
 
@@ -38,9 +50,37 @@
                         @foreach (var item in Model.CourseEpisodes)
                         {
                             <li>
-                                <h3> @item.EpisodeTitle </h3>
+                                <h3>
+                                    @if (item.IsFree || isUserInCourse)
+                                    {
+                                        <a href="/DownloadFile/@item.EpisodeId">
+                                            <b>@item.EpisodeTitle</b>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <b>@item.EpisodeTitle</b>
+                                    }
+
+
+                                </h3>
                                 <i>
-                                    @((item.IsFree)?"رایگان":"نقدی")
+
+                                    @if (item.IsFree)
+                                    {
+
+                                        <span class="text text-success">رایگان</span>
+
+
+                                    }
+                                    else
+                                    {
+
+                                        <span class="text text-danger">نقدی</span>
+
+                                    }
+
+
                                 </i>
                                 <span>@item.EpisodeTime</span>
                             </li>
@@ -170,6 +210,7 @@
                         </div>
                     </div>
                 </section>
+
             </div>
 
             <aside class="col-md-4 col-sm-12 col-xs-12 pull-right">
@@ -188,8 +229,24 @@
                             <i>0 نفر </i>
                         </li>
                     </ul>
+                    @if (!User.Identity.IsAuthenticated || !isUserInCourse)
+                    {
+                        <a href="/UserPanel/Order/AddOrder/@Model.CourseId">
+                           شرکت در دوره :
+                            
+                            @if (Model.CoursePrice==0)
+                            {
+                                <span>رایگان</span>
+                            }
+                            else
+                            {
+                                @Model.CoursePrice.ToString("#,0 تومان")
+                            }
+                            
+                           
+                        </a>
+                    }
 
-                    <a href="/UserPanel/Order/AddOrder/@Model.CourseId"> شرکت در دوره : @Model.CoursePrice.ToString("#,0") تومان </a>
                 </div>
 
                 <article class="teacher-info">

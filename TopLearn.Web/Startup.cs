@@ -107,6 +107,10 @@ namespace TopLearn.Web
 
             services.AddScoped<IUserDiscountService, UserDiscountService>();
 
+            services.AddScoped<IUserCourseService, UserCourseService>();
+
+            
+
 
 
             #endregion
