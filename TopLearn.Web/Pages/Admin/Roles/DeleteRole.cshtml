@@ -16,9 +16,9 @@
 
                     <i class="fa fa-bell fa-fw text-danger"></i> <span>آیا از حذف </span> <span class="text-danger">@Model.Role.Description</span> <span>اطمینان دارید ؟</span>
                 </h1>
-                <br/>
-                <br/>
-                <input type="hidden" asp-for="Role.RoleId"/>
+                <br />
+                <br />
+                <input type="hidden" asp-for="Role.RoleId" />
 
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
@@ -40,7 +40,7 @@
                 </div>
 
                 <p>
-                    <input type="submit" class="btn btn-danger btn-lg" value="حذف"/>
+                    <input type="submit" class="btn btn-danger btn-lg" value="حذف" />
                     <a class="btn btn-primary btn-lg" href="/Admin/Roles">انصراف</a>
                 </p>
             </div>
@@ -50,3 +50,16 @@
     </div>
 
 </div>
+
+@section Scripts
+{
+    <script src="/Admin/js/jquery-1.10.2.js"></script>
+
+    <script src="/Admin/js/bootstrap.min.js"></script>
+
+
+    <script src="/Admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <script src="/Admin/js/sb-admin.js"></script>
+
+}

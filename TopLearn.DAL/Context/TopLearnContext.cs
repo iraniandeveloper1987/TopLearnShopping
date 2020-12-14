@@ -55,6 +55,8 @@ namespace TopLearn.DAL.Context
 
         public DbSet<UserDiscount> UserDiscounts { get; set; }
 
+        public DbSet<UserCourse> UserCourses { get; set; }
+
 
 
         #endregion

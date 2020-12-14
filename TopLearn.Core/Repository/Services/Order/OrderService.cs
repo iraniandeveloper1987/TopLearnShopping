@@ -10,6 +10,7 @@ using TopLearn.Core.Repository.Interfaces.Wallet;
 using TopLearn.Core.Services.ServiceBase;
 using TopLearn.DAL.Context;
 using TopLearn.DAL.Entities;
+using TopLearn.DAL.Entities.Course;
 using TopLearn.DAL.Entities.Order;
 
 namespace TopLearn.Core.Repository.Services.Order
@@ -86,9 +87,12 @@ namespace TopLearn.Core.Repository.Services.Order
             }
 
 
+           
+
             _context.SaveChanges();
             UpdateSumOrder(order.OrderId);
 
+       
 
             return order.OrderId;
 
@@ -121,7 +125,7 @@ namespace TopLearn.Core.Repository.Services.Order
         {
             var userId = _userService.GetUserIdByUserName(userName);
 
-            var order = _context.Orders.FirstOrDefault(o => o.UserId == userId && o.OrderId == orderId);
+            var order = _context.Orders.Include(o=>o.OrderDetails).FirstOrDefault(o => o.UserId == userId && o.OrderId == orderId);
 
             if (order == null)
             {
@@ -137,8 +141,18 @@ namespace TopLearn.Core.Repository.Services.Order
 
 
             order.IsFinally = true;
-            base.Update(order);
-            base.Save();
+
+
+            order.OrderDetails.ForEach(od =>
+                _context.UserCourses.Add(new UserCourse()
+                {
+                    UserId = order.UserId,
+                    CourseId = od.CourseId
+                }));
+
+
+            _context.Orders.Update(order);
+            _context.SaveChanges();
 
             #region Withdraw from Wallet (برداشت)
 

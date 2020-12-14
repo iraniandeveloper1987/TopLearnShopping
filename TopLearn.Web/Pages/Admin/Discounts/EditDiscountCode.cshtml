@@ -1,0 +1,122 @@
+﻿@page  "{discountId}"
+@using TopLearn.Core.Convertors
+@model TopLearn.Web.Pages.Admin.Discounts.EditDiscountCodeModel
+@{
+}
+
+<div class="row" style="margin-top: 30px">
+
+    <form method="post">
+        <input type="hidden" asp-for="Discount.DiscountId" />
+        <input type="hidden" id="oldCode" value="@ViewData["oldCode"]" />
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    تعریف کد جدید
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>کد تخفیف </label>
+                    <input asp-for="Discount.DiscountCode" class="form-control">
+                    <span class="text-danger" asp-validation-for="Discount.DiscountCode"></span>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>درصد تخفیف</label>
+                    <input asp-for="Discount.DiscountPercent" class="form-control">
+                    <span class="text-danger" asp-validation-for="Discount.DiscountPercent"></span>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>تعداد کد تخفیف مجاز</label>
+                    <input asp-for="Discount.UsableCount" class="form-control">
+                    <span class="text-danger" asp-validation-for="Discount.UsableCount"></span>
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>تاریخ شروع کد تخفیف</label>
+                    <input type="text" asp-for="Discount.StartDate" value="@((Model.Discount.StartDate!=null)?Model.Discount.StartDate.Value.MiladiToShamsi():"")" class="form-control">
+                    <span class="text-danger" asp-validation-for="Discount.StartDate"></span>
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>تاریخ پایان کد تخفیف</label>
+                    <input type="text" asp-for="Discount.EndDate" value="@((Model.Discount.EndDate!=null)?Model.Discount.EndDate.Value.MiladiToShamsi():"")" class="form-control">
+                    <span class="text-danger" asp-validation-for="Discount.EndDate"></span>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+
+                    <input class="btn btn-success" value="ذخیره اطلاعات" type="submit">
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+
+@section Scripts
+{
+
+    <script src="~/DatePicker/Scripts/jquery-2.1.4.js"></script>
+
+    <script src="~/DatePicker/Scripts/bootstrap.js"></script>
+
+    <script src="/Admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <script src="/Admin/js/sb-admin.js"></script>
+
+    <script src="~/kendo-DP/kendo.all.min.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $("#Discount_StartDate").kendoDatePicker();
+        $("#Discount_EndDate").kendoDatePicker();
+
+
+        $('#Discount_DiscountCode').blur(function () {
+           
+            var oldCode = $('#oldCode').val();
+            var newcode = $('#Discount_DiscountCode').val();
+
+            if (newcode !== oldCode) {
+
+                $.ajax({
+                    type: "get",
+                    url: "/Admin/Discounts/CreateDiscountCode/CheckCode?code=" + $("#Discount_DiscountCode").val()
+                }).done(function (res) {
+
+                    if (res === 'True') {
+
+                        //$('#IsExistCode').show();
+                        Swal.fire({
+                            position: 'top-center',
+                            //icon: 'success',
+                            icon: 'error',
+                            title: 'کد تخفیف وارد شده تکراری می باشد',
+                            showConfirmButton: false,
+                            timer: 3500
+                        });
+
+                        $('#Discount_DiscountCode').val('');
+
+
+                    } else {
+                        $('#IsExistCode').hide();
+                    }
+                });
+            }
+
+
+
+        });
+
+    </script>
+
+
+
+
+}

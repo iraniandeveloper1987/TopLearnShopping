@@ -295,6 +295,28 @@ namespace TopLearn.DAL.Migrations
                         });
                 });
 
+            modelBuilder.Entity("TopLearn.DAL.Entities.Course.UserCourse", b =>
+                {
+                    b.Property<int>("UserCourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserCourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserCourses");
+                });
+
             modelBuilder.Entity("TopLearn.DAL.Entities.Discount.Discount", b =>
                 {
                     b.Property<int>("DiscountId")
@@ -898,7 +920,7 @@ namespace TopLearn.DAL.Migrations
                             IsDeleted = false,
                             Mobile = "09198948580",
                             Password = "20-2C-B9-62-AC-59-07-5B-96-4B-07-15-2D-23-4B-70",
-                            RegisterDate = new DateTime(2020, 12, 10, 14, 10, 11, 744, DateTimeKind.Local).AddTicks(1415),
+                            RegisterDate = new DateTime(2020, 12, 12, 12, 13, 49, 499, DateTimeKind.Local).AddTicks(8160),
                             UserAvatar = "Default.jpg",
                             UserName = "admin"
                         });
@@ -1017,6 +1039,21 @@ namespace TopLearn.DAL.Migrations
                     b.HasOne("TopLearn.DAL.Entities.Course.CourseGroup", null)
                         .WithMany("CourseGroups")
                         .HasForeignKey("ParentId");
+                });
+
+            modelBuilder.Entity("TopLearn.DAL.Entities.Course.UserCourse", b =>
+                {
+                    b.HasOne("TopLearn.DAL.Entities.Course.Course", "Course")
+                        .WithMany("UserCourses")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TopLearn.DAL.Entities.User", "User")
+                        .WithMany("UserCourses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TopLearn.DAL.Entities.Discount.UserDiscount", b =>

@@ -9,16 +9,32 @@
 
     <title>Start Bootstrap - SB Admin Version 2.0 Demo</title>
 
-    <!-- Core CSS - Include with every page -->
+    @*Core CSS - Include with every page*@
+
+    @*<link rel="stylesheet" href="/DatePicker/Content/bootstrap.min.css" />
+        <link href="/DatePicker/Content/bootstrap-theme.css" rel="stylesheet" />
+        <link href="/DatePicker/Content/MdBootstrapPersianDateTimePicker/jquery.Bootstrap-PersianDateTimePicker.css" rel="stylesheet" />*@
+
+
+
     <link href="/Admin/css/bootstrap-rtl.css" rel="stylesheet">
-    <link href="/Admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="/Admin/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <!-- Page-Level Plugin CSS - Dashboard -->
+    @*Page-Level Plugin CSS - Dashboard*@
+
     <link href="/Admin/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
-    <link href="/Admin/css/plugins/timeline/timeline.css" rel="stylesheet">
+        <link href="/Admin/css/plugins/timeline/timeline.css" rel="stylesheet">
 
-    <!-- SB Admin CSS - Include with every page -->
+    @*SB Admin CSS - Include with every page*@
+
     <link href="/Admin/css/sb-admin.css" rel="stylesheet">
+
+
+    <link href="~/kendo-DP/kendo.common.min.css" rel="stylesheet" />
+    <link href="~/kendo-DP/kendo.default.min.css" rel="stylesheet" />
+
+    
+    @RenderSection("Styles", false)
 
 </head>
 
@@ -324,6 +340,17 @@
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <li>
+                            <a href="#"><i class="fa fa fa-bullhorn fa-fw"></i>  مدیریت کدهای تخفیف  <span class="fa arrow"></span>  </a>
+
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/Admin/Discounts"><i class="fa fa fa-scissors fa-fw"></i>   کدهای تخفیف   </a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+
 
                         <li>
                             <a href="/Logout"><i class="fa fa-sign-out fa-fw"></i> خروج </a>
@@ -344,17 +371,10 @@
         <!-- /#page-wrapper -->
 
     </div>
+
     <!-- /#wrapper -->
     <!-- Core Scripts - Include with every page -->
-    <script src="/Admin/js/jquery-1.10.2.js"></script>
-    <script src="/Admin/js/bootstrap.min.js"></script>
-    <script src="/Admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-
-
-    SB Admin Scripts - Include with every page
-    <script src="/Admin/js/sb-admin.js"></script>
-
-
+ 
 
 </body>
 

@@ -61,6 +61,7 @@ namespace TopLearn.Web.Areas.UserPanel.Controllers
         public IActionResult FinallyOrder(int id)
         {
             var result = _orderService.FinallyOrder(id, User.Identity.Name);
+
             if (!result)
             {
                 return Redirect("/UserPanel/Order/ShowOrder/" + id + "?finaly=true&error=true");

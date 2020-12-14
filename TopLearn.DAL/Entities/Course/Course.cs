@@ -70,15 +70,17 @@ namespace TopLearn.DAL.Entities.Course
         public virtual CourseGroup SubCourseGroup { get; set; }
 
 
-        [ForeignKey("StatusId")] 
+        [ForeignKey("StatusId")]
         public virtual CourseStatus CourseStatus { get; set; }
 
 
         [ForeignKey("LevelId")]
         public virtual CourseLevel CourseLevel { get; set; }
 
-        
+
         public virtual List<CourseEpisode> CourseEpisodes { get; set; }
+
+        public virtual List<UserCourse> UserCourses { get; set; }
 
 
         #endregion

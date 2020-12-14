@@ -37,17 +37,17 @@
 
                         <div class="form-group">
                             <label>وضعیت جلسه</label>
-                            <br/>
+                            <br />
                             @if (Model.CourseEpisode.IsFree)
                             {
                                 <span>رایگان</span>
                             }
                             else
                             {
-                        <span>نقدی</span>
+                                <span>نقدی</span>
                             }
 
-                         
+
                         </div>
 
                     </div>
@@ -67,3 +67,16 @@
     </div>
 
 </div>
+
+@section Scripts
+{
+    <script src="/Admin/js/jquery-1.10.2.js"></script>
+
+    <script src="/Admin/js/bootstrap.min.js"></script>
+
+
+    <script src="/Admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <script src="/Admin/js/sb-admin.js"></script>
+
+}

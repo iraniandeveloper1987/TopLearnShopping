@@ -73,5 +73,10 @@ namespace TopLearn.Core.Repository.Services.Discount
             return DiscountStatusEnum.Success;
 
         }
+
+        public bool IsExistDiscountCode(string code)
+        {
+            return _context.Discounts.Any(d => d.DiscountCode == code);
+        }
     }
 }

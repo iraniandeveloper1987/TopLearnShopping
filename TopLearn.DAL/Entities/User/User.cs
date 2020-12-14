@@ -82,6 +82,8 @@ namespace TopLearn.DAL.Entities
 
         public virtual List<UserDiscount> UserDiscounts { get; set; }
 
+        public virtual List<UserCourse> UserCourses { get; set; }
+
 
         #endregion
 

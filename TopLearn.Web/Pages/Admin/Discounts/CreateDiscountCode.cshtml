@@ -1,0 +1,175 @@
+﻿@page  "{handler?}"
+
+@model TopLearn.Web.Pages.Admin.Discounts.CreateDiscountCodeModel
+@{
+}
+
+
+<div class="row" style="margin-top: 30px">
+
+    <form method="post">
+
+        <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    تعریف کد جدید
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>کد تخفیف </label>
+                    <input asp-for="Discount.DiscountCode" class="form-control">
+                    <span class="text-danger" asp-validation-for="Discount.DiscountCode"></span>
+                    <div style="display: none" id="IsExistCode"  class="alert alert-danger ">
+                        <p class="help-block">
+                            کد تخفیف وارد شده تکراری می باشد
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>درصد تخفیف</label>
+                    <input asp-for="Discount.DiscountPercent" class="form-control">
+                    <span class="text-danger" asp-validation-for="Discount.DiscountPercent"></span>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+                    <label>تعداد کد تخفیف مجاز</label>
+                    <input asp-for="Discount.UsableCount" class="form-control">
+                    <span class="text-danger" asp-validation-for="Discount.UsableCount"></span>
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>تاریخ شروع کد تخفیف</label>
+                    <input type="text" name="startDate" id="startDate" class="form-control">
+                    <span class="text-danger" asp-validation-for="Discount.StartDate"></span>
+                </div>
+                <div class="form-group" style="margin: 10px">
+                    <label>تاریخ پایان کد تخفیف</label>
+                    <input type="text" name="endDate" id="endDate" class="form-control">
+                    <span class="text-danger" asp-validation-for="Discount.EndDate"></span>
+                </div>
+
+                <div class="form-group" style="margin: 10px">
+
+                    <input class="btn btn-success" value="ذخیره اطلاعات" type="submit">
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+
+
+@section Scripts
+{
+
+
+
+
+    <script src="~/DatePicker/Scripts/jquery-2.1.4.js"></script>
+
+    <script src="~/DatePicker/Scripts/bootstrap.js"></script>
+
+    <script src="/Admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <script src="/Admin/js/sb-admin.js"></script>
+    
+    <script src="~/kendo-DP/kendo.all.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    @*<script src="~/DatePicker/Scripts/MdBootstrapPersianDateTimePicker/calendar.js"></script>
+
+        <script src="~/DatePicker/Scripts/MdBootstrapPersianDateTimePicker/jquery.Bootstrap-PersianDateTimePicker.js"></script>*@
+
+
+
+    <partial name="_ValidationScriptsPartial" />
+
+
+    <script>
+
+
+    $("#startDate").kendoDatePicker();
+    $("#endDate").kendoDatePicker();
+
+
+    $('#Discount_DiscountCode').blur(function () {
+        $.ajax({
+            type: "get",
+            url: "/Admin/Discounts/CreateDiscountCode/CheckCode?code=" + $("#Discount_DiscountCode").val()
+        }).done(function (res) {
+              
+            if (res === 'True') {
+
+                //$('#IsExistCode').show();
+                Swal.fire({
+                    position: 'top-center',
+                    //icon: 'success',
+                    icon: 'error',
+                    title: 'کد تخفیف وارد شده تکراری می باشد',
+                    showConfirmButton: false,
+                    timer: 3500
+                });
+
+                $('#Discount_DiscountCode').val('');
+
+
+            } else {
+                    $('#IsExistCode').hide();
+                }
+            });
+        });
+
+
+        //$('#startDate').MdPersianDateTimePicker({
+        //    Placement: 'bottom', // default is 'bottom'
+        //    Trigger: 'focus', // default is 'focus',
+        //    EnableTimePicker: false, // default is true,
+        //    TargetSelector: '', // default is empty,
+        //    GroupId: '', // default is empty,
+        //    ToDate: false, // default is false,
+        //    FromDate: false, // default is false,
+        //    englishNumber: true
+        //});
+
+        //$('#endDate').MdPersianDateTimePicker({
+        //    Placement: 'bottom', // default is 'bottom'
+        //    Trigger: 'focus', // default is 'focus',
+        //    EnableTimePicker: false, // default is true,
+        //    TargetSelector: '', // default is empty,
+        //    GroupId: '', // default is empty,
+        //    ToDate: false, // default is false,
+        //    FromDate: false, // default is false,
+        //    englishNumber: true
+        //});
+    </script>
+
+    @*<script>
+
+            $('#startDate').change(function () {
+
+                var json = $("#startDate").attr("data-mdpersiandatetimepickerselecteddatetime");
+                var obj = jQuery.parseJSON(json);
+                var startDateResult = obj.Year + '/' + obj.Month + '/' + obj.Day;
+                $("#startDate").val('');
+                $("#startDate").val(startDateResult);
+
+            });
+
+            $('#endDate').change(function () {
+                debugger;
+                var json = $("#endDate").attr("data-mdpersiandatetimepickerselecteddatetime");
+                var obj = jQuery.parseJSON(json);
+                var endDateResult = obj.Year + '/' + obj.Month + '/' + obj.Day;
+                $("#endDate").val('');
+                $("#endDate").val(endDateResult);
+
+            });
+
+
+        </script>*@
+    
+
+}
