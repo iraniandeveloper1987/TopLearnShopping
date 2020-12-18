@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TopLearn.DAL.Context;
 
 namespace TopLearn.DAL.Migrations
 {
     [DbContext(typeof(TopLearnContext))]
-    partial class TopLearnContextModelSnapshot : ModelSnapshot
+    [Migration("20201217093258_mig-Add Comment Entity ")]
+    partial class migAddCommentEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +59,7 @@ namespace TopLearn.DAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CourseComments");
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("TopLearn.DAL.Entities.Course.Course", b =>
@@ -961,7 +963,7 @@ namespace TopLearn.DAL.Migrations
                             IsDeleted = false,
                             Mobile = "09198948580",
                             Password = "20-2C-B9-62-AC-59-07-5B-96-4B-07-15-2D-23-4B-70",
-                            RegisterDate = new DateTime(2020, 12, 17, 13, 9, 52, 391, DateTimeKind.Local).AddTicks(8016),
+                            RegisterDate = new DateTime(2020, 12, 17, 13, 2, 57, 873, DateTimeKind.Local).AddTicks(6476),
                             UserAvatar = "Default.jpg",
                             UserName = "admin"
                         });
@@ -1037,8 +1039,8 @@ namespace TopLearn.DAL.Migrations
 
             modelBuilder.Entity("TopLearn.DAL.Entities.Comment.CourseComment", b =>
                 {
-                    b.HasOne("TopLearn.DAL.Entities.Comment.CourseComment", null)
-                        .WithMany("ParentComment")
+                    b.HasOne("TopLearn.DAL.Entities.Comment.CourseComment", "ParentComment")
+                        .WithMany()
                         .HasForeignKey("CommentParentId");
 
                     b.HasOne("TopLearn.DAL.Entities.Course.Course", "Course")

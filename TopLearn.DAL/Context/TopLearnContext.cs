@@ -6,6 +6,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Microsoft.EntityFrameworkCore;
 using TopLearn.DAL.Entities;
+using TopLearn.DAL.Entities.Comment;
 using TopLearn.DAL.Entities.Course;
 using TopLearn.DAL.Entities.Discount;
 using TopLearn.DAL.Entities.Order;
@@ -56,6 +57,8 @@ namespace TopLearn.DAL.Context
         public DbSet<UserDiscount> UserDiscounts { get; set; }
 
         public DbSet<UserCourse> UserCourses { get; set; }
+
+        public DbSet<CourseComment> CourseComments { get; set; }
 
 
 

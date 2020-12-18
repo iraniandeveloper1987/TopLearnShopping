@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using TopLearn.DAL.Entities.Comment;
 using TopLearn.DAL.Entities.Course;
 using TopLearn.DAL.Entities.Discount;
 
@@ -83,6 +84,8 @@ namespace TopLearn.DAL.Entities
         public virtual List<UserDiscount> UserDiscounts { get; set; }
 
         public virtual List<UserCourse> UserCourses { get; set; }
+
+        public virtual List<CourseComment> Comments { get; set; }
 
 
         #endregion

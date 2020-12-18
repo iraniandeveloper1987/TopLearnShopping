@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TopLearn.DAL.Entities.Comment;
 
 namespace TopLearn.DAL.Entities.Course
 {
@@ -81,6 +82,8 @@ namespace TopLearn.DAL.Entities.Course
         public virtual List<CourseEpisode> CourseEpisodes { get; set; }
 
         public virtual List<UserCourse> UserCourses { get; set; }
+
+        public virtual List<CourseComment> Comments { get; set; }
 
 
         #endregion

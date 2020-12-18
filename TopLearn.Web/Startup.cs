@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using TopLearn.Core.messaging.Interfaces;
 using TopLearn.Core.messaging.Services;
 using TopLearn.Core.Repository.Interfaces;
+using TopLearn.Core.Repository.Interfaces.Comment;
 using TopLearn.Core.Repository.Interfaces.Course;
 using TopLearn.Core.Repository.Interfaces.Discount;
 using TopLearn.Core.Repository.Interfaces.FilterAttributes;
@@ -24,6 +25,7 @@ using TopLearn.Core.Repository.Interfaces.Role;
 using TopLearn.Core.Repository.Interfaces.User;
 using TopLearn.Core.Repository.Interfaces.Wallet;
 using TopLearn.Core.Repository.Services;
+using TopLearn.Core.Repository.Services.Comment;
 using TopLearn.Core.Repository.Services.Course;
 using TopLearn.Core.Repository.Services.Discount;
 using TopLearn.Core.Repository.Services.FilterAttributes;
@@ -109,7 +111,9 @@ namespace TopLearn.Web
 
             services.AddScoped<IUserCourseService, UserCourseService>();
 
-            
+            services.AddScoped<ICourseCommentService, CourseCommentService>();
+
+
 
 
 
