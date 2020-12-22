@@ -29,5 +29,11 @@ namespace TopLearn.Core.Repository.Interfaces.Course
 
         DAL.Entities.Course.Course GetCourseById(int courseId);
 
+        int AttendantCourseCount(int courseId);
+
+        DAL.Entities.Course.Course GetCourseByShortKey(string key);
+
     }
+
+
 }

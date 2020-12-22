@@ -415,5 +415,16 @@ namespace TopLearn.Core.Repository.Services.Course
                 .FirstOrDefault(c => c.CourseId == courseId);
 
         }
+
+        public int AttendantCourseCount(int courseId)
+        {
+            return _context.OrderDetails.Where(c => c.CourseId == courseId)
+                .ToList().Count;
+        }
+
+        public DAL.Entities.Course.Course GetCourseByShortKey(string key)
+        {
+            return _context.Courses.FirstOrDefault(c => c.ShortKey == key);
+        }
     }
 }

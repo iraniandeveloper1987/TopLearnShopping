@@ -30,9 +30,10 @@ namespace TopLearn.Web.Controllers
             return View(model);
         }
 
-        [Route("ShowCourse/{courseId}")]
-        public IActionResult ShowCourse(int courseId)
+        [Route("ShowCourse/{courseId}/{courseTitle?}")]
+        public IActionResult ShowCourse(int courseId , string courseTitle)
         {
+            ViewData["AttendantCourseCount"] = _courseService.AttendantCourseCount(courseId);
             var model = _courseService.GetCourseById(courseId);
 
             return View(model);

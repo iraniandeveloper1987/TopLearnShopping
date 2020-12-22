@@ -19,6 +19,12 @@
 
 }
 
+
+@section Meta
+{
+    <link rel="canonical" href="https://localhost:5001/ShowCourse/@Model.CourseId/@Model.CourseTitle.Trim().Replace(" ", "-")"/>
+}
+
 <div class="container">
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
@@ -102,12 +108,12 @@
                                   data-ajax-update="#listComment"
                                   data-ajax-success="Success">
 
-                                <input type="hidden" name="comment.CourseId" value="@Model.CourseId"/>
+                                <input type="hidden" name="comment.CourseId" value="@Model.CourseId" />
                                 <div class="row">
 
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="form-group">
-                                            <textarea  name="comment.Comment"class="form-control" placeholder="متن نظر"></textarea>
+                                            <textarea name="comment.Comment" class="form-control" placeholder="متن نظر"></textarea>
                                         </div>
 
                                     </div>
@@ -130,9 +136,9 @@
                                 </p>
                             </div>
                         }
-                 
 
-                      
+
+
                     </div>
                 </section>
 
@@ -151,7 +157,8 @@
                         </li>
                         <li>
                             <span> تعداد دانشجوها </span>
-                            <i>0 نفر </i>
+
+                            <i>@ViewData["AttendantCourseCount"].ToString() نفر </i>
                         </li>
                     </ul>
                     @if (!User.Identity.IsAuthenticated || !isUserInCourse)
@@ -191,9 +198,19 @@
                         {
                             <li>آخرین بروزرسانی دوره : @Model.UpdateDate?.MiladiToShamsi() </li>
                         }
+                     
 
                     </ul>
                 </article>
+                
+                <div class="term-info" >
+                    <ul>
+                        <li>
+                            آدرس کوتاه : <a style="margin-right: 20px" class="btn btn-info" href="https://localhost:5001/c/@Model.ShortKey">localhost:5001/c/@Model.ShortKey</a>
+                        </li>
+                    </ul>
+                   
+                </div>
 
                 <div class="share-layer">
                     <span> به اشتراک گذاری </span>
@@ -202,6 +219,8 @@
                     <a href=""><i class="zmdi zmdi-twitter"></i></a>
                     <a href=""><i class="zmdi zmdi-linkedin"></i></a>
                 </div>
+                
+
 
                 <div class="tags-layer">
                     @foreach (var item in Model.Tags.Split("-").ToList())
@@ -222,7 +241,7 @@
 {
 
     <script type="text/javascript" src="/js/jquery.unobtrusive-ajax.min.js"></script>
-    
+
     <script>
         function Success() {
             $("#comment_Comment").val("");
