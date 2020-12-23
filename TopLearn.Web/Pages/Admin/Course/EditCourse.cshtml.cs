@@ -13,6 +13,7 @@ using TopLearn.Core.Repository.Interfaces.Course;
 namespace TopLearn.Web.Pages.Admin.Course
 {
     [CheckPermission((int)PermissionEnum.EditCourse)]
+    [DisableRequestSizeLimit]
     public class EditCourseModel : PageModel
     {
         private readonly ICourseService _courseService;

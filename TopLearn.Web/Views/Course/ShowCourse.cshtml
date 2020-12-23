@@ -48,6 +48,14 @@
                     <p>
                         @(Html.Raw(Model.CourseDescription) )
                     </p>
+                    
+                    @if (!string.IsNullOrEmpty(Model.DemoFileName))
+                    {
+                        <video style="width: 100%" controls>
+                            <source src="/images/Courses/Demo/@Model.DemoFileName"/>
+                        </video>
+                    }
+                  
 
                     <h2> سرفصل های این دوره : </h2>
                     <ul>
@@ -158,7 +166,7 @@
                         <li>
                             <span> تعداد دانشجوها </span>
 
-                            <i>@ViewData["AttendantCourseCount"].ToString() نفر </i>
+                            <i>@Model.UserCourses.Count نفر </i>
                         </li>
                     </ul>
                     @if (!User.Identity.IsAuthenticated || !isUserInCourse)

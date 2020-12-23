@@ -14,6 +14,7 @@ using TopLearn.DAL.Entities.Course;
 namespace TopLearn.Web.Pages.Admin.Course
 {
     [CheckPermission((int)PermissionEnum.AddCourse)]
+    [DisableRequestSizeLimit]
     public class CreateCourseModel : PageModel
     {
         private readonly ICourseService _courseService;

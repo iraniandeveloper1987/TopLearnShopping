@@ -7,7 +7,8 @@ namespace TopLearn.Core.States
     public enum RoleEnum
     {
         Admin =1,
-        User=2
+        Teacher=2,
+        User=3
     } 
     
 }

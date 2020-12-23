@@ -185,18 +185,25 @@ namespace TopLearn.Core.Repository.Services.Course
 
                 if (demoFileUp != null)
                 {
+
+
                     #region Check Exist Demo Course Image  And Delete
 
-                    var demoImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Courses/Demo",
-                        course.DemoFileName);
-
-
-                    if (File.Exists(demoImagePath))
+                    if (!string.IsNullOrEmpty(course.DemoFileName))
                     {
-                        File.Delete(demoImagePath);
+                        var demoImagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/Courses/Demo",
+                            course.DemoFileName);
+
+
+                        if (File.Exists(demoImagePath))
+                        {
+                            File.Delete(demoImagePath);
+                        }
                     }
+                    
 
                     #endregion
+
 
                     #region Save  Demo File For Course
 
@@ -410,18 +417,14 @@ namespace TopLearn.Core.Repository.Services.Course
         public DAL.Entities.Course.Course GetCourseById(int courseId)
         {
             return _context.Courses.Include(c => c.CourseEpisodes)
-                .Include(c => c.CourseStatus).Include(c => c.CourseLevel)
+                .Include(c => c.CourseStatus)
+                .Include(c => c.CourseLevel)
                 .Include(c => c.User)
+                .Include(c=>c.UserCourses)
                 .FirstOrDefault(c => c.CourseId == courseId);
 
         }
-
-        public int AttendantCourseCount(int courseId)
-        {
-            return _context.OrderDetails.Where(c => c.CourseId == courseId)
-                .ToList().Count;
-        }
-
+        
         public DAL.Entities.Course.Course GetCourseByShortKey(string key)
         {
             return _context.Courses.FirstOrDefault(c => c.ShortKey == key);

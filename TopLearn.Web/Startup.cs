@@ -160,8 +160,7 @@ namespace TopLearn.Web
 
             app.UseRouting();
 
-
-
+          
             app.UseAuthentication();
 
             app.UseAuthorization();

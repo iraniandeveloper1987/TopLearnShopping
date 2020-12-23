@@ -33,8 +33,7 @@ namespace TopLearn.Web.Controllers
         [Route("ShowCourse/{courseId}/{courseTitle?}")]
         public IActionResult ShowCourse(int courseId , string courseTitle)
         {
-            ViewData["AttendantCourseCount"] = _courseService.AttendantCourseCount(courseId);
-            var model = _courseService.GetCourseById(courseId);
+           var model = _courseService.GetCourseById(courseId);
 
             return View(model);
         }

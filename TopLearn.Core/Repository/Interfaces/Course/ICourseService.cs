@@ -28,9 +28,7 @@ namespace TopLearn.Core.Repository.Interfaces.Course
             int minPrice = 0, int maxPrice = 0, List<int> selectedGroups = null, int take = 8);
 
         DAL.Entities.Course.Course GetCourseById(int courseId);
-
-        int AttendantCourseCount(int courseId);
-
+        
         DAL.Entities.Course.Course GetCourseByShortKey(string key);
 
     }
