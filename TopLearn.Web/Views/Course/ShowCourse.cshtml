@@ -51,7 +51,7 @@
                     
                     @if (!string.IsNullOrEmpty(Model.DemoFileName))
                     {
-                        <video style="width: 100%" controls>
+                        <video style="width: 100%" controls poster="/images/Courses/@Model.CourseImageName">
                             <source src="/images/Courses/Demo/@Model.DemoFileName"/>
                         </video>
                     }
