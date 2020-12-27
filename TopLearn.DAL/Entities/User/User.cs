@@ -87,6 +87,8 @@ namespace TopLearn.DAL.Entities
 
         public virtual List<CourseComment> Comments { get; set; }
 
+        public virtual List<CourseVote> CourseVotes { get; set; }
+
 
         #endregion
 

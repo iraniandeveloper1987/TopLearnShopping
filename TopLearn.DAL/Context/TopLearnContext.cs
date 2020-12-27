@@ -60,6 +60,8 @@ namespace TopLearn.DAL.Context
 
         public DbSet<CourseComment> CourseComments { get; set; }
 
+        public DbSet<CourseVote> CourseVotes { get; set; }
+
 
 
         #endregion

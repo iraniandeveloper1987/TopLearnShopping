@@ -22,7 +22,7 @@
 
 @section Meta
 {
-    <link rel="canonical" href="https://localhost:5001/ShowCourse/@Model.CourseId/@Model.CourseTitle.Trim().Replace(" ", "-")"/>
+    <link rel="canonical" href="https://localhost:5001/ShowCourse/@Model.CourseId/@Model.CourseTitle.Trim().Replace(" ", "-")" />
 }
 
 <div class="container">
@@ -48,14 +48,18 @@
                     <p>
                         @(Html.Raw(Model.CourseDescription) )
                     </p>
-                    
+
                     @if (!string.IsNullOrEmpty(Model.DemoFileName))
                     {
                         <video style="width: 100%" controls poster="/images/Courses/@Model.CourseImageName">
-                            <source src="/images/Courses/Demo/@Model.DemoFileName"/>
+                            <source src="/images/Courses/Demo/@Model.DemoFileName" />
                         </video>
                     }
-                  
+
+                    <div class="text-center" id="Vote">
+
+                    </div>
+
 
                     <h2> سرفصل های این دوره : </h2>
                     <ul>
@@ -206,18 +210,18 @@
                         {
                             <li>آخرین بروزرسانی دوره : @Model.UpdateDate?.MiladiToShamsi() </li>
                         }
-                     
+
 
                     </ul>
                 </article>
-                
-                <div class="term-info" >
+
+                <div class="term-info">
                     <ul>
                         <li>
                             آدرس کوتاه : <a style="margin-right: 20px" class="btn btn-info" href="https://localhost:5001/c/@Model.ShortKey">localhost:5001/c/@Model.ShortKey</a>
                         </li>
                     </ul>
-                   
+
                 </div>
 
                 <div class="share-layer">
@@ -227,7 +231,7 @@
                     <a href=""><i class="zmdi zmdi-twitter"></i></a>
                     <a href=""><i class="zmdi zmdi-linkedin"></i></a>
                 </div>
-                
+
 
 
                 <div class="tags-layer">
@@ -257,13 +261,24 @@
             $("#listComment").load("/Comment/ShowCourseComments/" + @Model.CourseId);
         }
 
-        $(function() {
+        $(function () {
+
             $("#listComment").load("/Comment/ShowCourseComments/" + @Model.CourseId);
+
+            $("#Vote").load("/Course/CourseVote/@Model.CourseId");
         });
 
         @*function pageComment(pageid) {
             $("#listComment").load("/Comment/ShowCourseComments/" + @Model.CourseId+"?pageId="+ pageid);
         }*@
+
+        function AddVote(vote) {
+
+            $("#Vote").fadeOut('slow');
+            $("#Vote").load("/Course/AddVote/@(Model.CourseId)?vote=" + vote);
+            $("#Vote").fadeIn('slow');
+          
+        }
 
 
     </script>

@@ -113,6 +113,8 @@ namespace TopLearn.Web
 
             services.AddScoped<ICourseCommentService, CourseCommentService>();
 
+            services.AddScoped<ICourseVoteService, CourseVoteService>();
+
 
 
 

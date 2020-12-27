@@ -1,0 +1,30 @@
+﻿
+@{
+    Layout = null;
+}
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="row">
+    
+        <img style="margin-top: 10px" src="~/images/pic/voteuser.jpg" />
+
+        <p></p>
+
+        <p class="text-center">
+            <a class="btn btn-success" onclick="AddVote(true)">
+                <img class="btnVote" src="~/images/pic/like.png" />
+                <span>میپسندم ( @ViewData["CountLike"] )</span>
+            </a>
+            <a class="btn btn-danger" onclick="AddVote(false)">
+                <img class="btnVote" src="~/images/pic/dislike.png" />
+                <span>نمیپسندم ( @ViewData["CountDislike"] )</span>
+            </a>
+        </p>
+    
+
+
+    </div>
+}
+
