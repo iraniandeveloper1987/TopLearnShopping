@@ -2,6 +2,7 @@
 @using Microsoft.EntityFrameworkCore
 @using TopLearn.Core.Convertors
 @using TopLearn.Core.Repository.Interfaces.Course
+@using TopLearn.Core.Repository.Interfaces.User
 @model TopLearn.DAL.Entities.Course.Course
 
 @inject IUserCourseService UserCourseServise
@@ -56,10 +57,14 @@
                         </video>
                     }
 
-                    <div class="text-center" id="Vote">
+                    @if (Model.CoursePrice==0 || isUserInCourse)
+                    {
+                        <div class="text-center" id="Vote">
 
-                    </div>
+                        </div>
+                    }
 
+                  
 
                     <h2> سرفصل های این دوره : </h2>
                     <ul>
@@ -187,7 +192,7 @@
                                 @Model.CoursePrice.ToString("#,0 تومان")
                             }
 
-
+                             
                         </a>
                     }
 
@@ -265,7 +270,14 @@
 
             $("#listComment").load("/Comment/ShowCourseComments/" + @Model.CourseId);
 
+            @*if ($("#Vote") != null)
+            {
+                $("#Vote").load("/Course/CourseVote/@Model.CourseId");
+            }*@
+
             $("#Vote").load("/Course/CourseVote/@Model.CourseId");
+
+           
         });
 
         @*function pageComment(pageid) {
