@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.AspNetCore.Http;
 using TopLearn.Core.Code_Generator;
 using TopLearn.Core.Repository.Interfaces.Course;
+using TopLearn.Core.SaveFile.ExtractEpisodeFiles;
 using TopLearn.Core.Services.ServiceBase;
 using TopLearn.DAL.Context;
 using TopLearn.DAL.Entities.Course;
@@ -51,6 +52,14 @@ namespace TopLearn.Core.Repository.Services.Course
 
             base.Add(episode);
             base.Save();
+
+            #region Extract Episode for Show Online Episode
+
+            ExtractEpisode.Extract(episode, videoEpisodeUpload);
+
+            #endregion
+
+
             return true;
         }
 

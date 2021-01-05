@@ -42,7 +42,8 @@
     <Folder Include="wwwroot\images\Courses\Episodes\" />
     <Folder Include="wwwroot\images\Courses\Thumbnail\" />
     <Folder Include="wwwroot\images\AppImages\" />
-    <Folder Include="wwwroot\Videos\Episodes\" />
+    <Folder Include="wwwroot\Videos\Episodes\FreeOnlineCourse\" />
+    <Folder Include="wwwroot\Videos\Episodes\MoneyOnlineCourse\" />
   </ItemGroup>
 
 </Project>

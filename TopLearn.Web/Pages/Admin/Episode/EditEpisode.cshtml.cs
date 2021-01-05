@@ -13,6 +13,7 @@ using TopLearn.DAL.Entities.Course;
 namespace TopLearn.Web.Pages.Admin.Episode
 {
     [CheckPermission((int)PermissionEnum.EditEpisode)]
+    [DisableRequestSizeLimit]
     public class EditEpisodeModel : PageModel
     {
         private readonly ICourseEpisodeService _courseEpisodeService;

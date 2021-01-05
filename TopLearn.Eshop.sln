@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopLearn.DAL", "TopLearn.DA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TopLearn.Core", "TopLearn.Core\TopLearn.Core.csproj", "{FC89E5F2-0F11-4782-A2F3-31838D461D74}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopLearn.WebApi", "TopLearn.WebApi\TopLearn.WebApi.csproj", "{D97AB4A6-EF82-41AB-9CD3-0C8104DA840C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FC89E5F2-0F11-4782-A2F3-31838D461D74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC89E5F2-0F11-4782-A2F3-31838D461D74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC89E5F2-0F11-4782-A2F3-31838D461D74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D97AB4A6-EF82-41AB-9CD3-0C8104DA840C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D97AB4A6-EF82-41AB-9CD3-0C8104DA840C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D97AB4A6-EF82-41AB-9CD3-0C8104DA840C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D97AB4A6-EF82-41AB-9CD3-0C8104DA840C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
