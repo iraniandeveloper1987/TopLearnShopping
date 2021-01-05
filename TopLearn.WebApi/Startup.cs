@@ -79,8 +79,8 @@ namespace TopLearn.WebApi
             });
 
 
-            //services.AddResponseCaching();
-            //services.AddMemoryCache();
+            services.AddResponseCaching();
+            services.AddMemoryCache();
 
 
         }
@@ -103,7 +103,7 @@ namespace TopLearn.WebApi
 
             app.UseAuthentication();
 
-            //app.UseResponseCaching();
+            app.UseResponseCaching();
 
             app.UseEndpoints(endpoints =>
             {

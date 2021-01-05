@@ -42,6 +42,7 @@ namespace TopLearn.WebApi.Controllers
 
         // GET api/<AccountController>/5    
         [HttpGet("{id}")]
+        //[ResponseCache(Duration = 60)]
         public async Task<IActionResult> GetUserById(int id)
         {
             var user = await _userService.FindUser(id);
