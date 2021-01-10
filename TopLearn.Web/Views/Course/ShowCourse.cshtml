@@ -5,7 +5,7 @@
 @using TopLearn.Core.Repository.Interfaces.User
 @model TopLearn.DAL.Entities.Course.Course
 
-@inject IUserCourseService UserCourseServise
+@inject IUserCourseService UserCourseService
 
 @{
     ViewData["Title"] = Model.CourseTitle;
@@ -14,7 +14,7 @@
 
     if (User.Identity.IsAuthenticated)
     {
-        isUserInCourse = UserCourseServise.IsExistUserInCourse(User.Identity.Name, Model.CourseId);
+        isUserInCourse = UserCourseService.IsExistUserInCourse(User.Identity.Name, Model.CourseId);
     }
 
 
@@ -260,10 +260,10 @@
     <script type="text/javascript" src="/js/jquery.unobtrusive-ajax.min.js"></script>
 
     <script>
-        function Success() {
+        function Success(currentPage) {
             $("#comment_Comment").val("");
 
-            $("#listComment").load("/Comment/ShowCourseComments/" + @Model.CourseId);
+            $("#listComment").load("/Comment/ShowCourseComments/" + @Model.CourseId +"?currentPage="+currentPage);
         }
 
         $(function () {

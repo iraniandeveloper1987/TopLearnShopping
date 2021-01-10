@@ -9,8 +9,8 @@ namespace TopLearn.Core.Repository.Interfaces.Comment
 {
     public interface ICourseCommentService : IBaseService<CourseComment>
     {
-        List<CourseComment> ShowCourseCommentsByCourseId(int courseId);
-        
+        Tuple<List<CourseComment>, int> ShowCourseCommentsByCourseId(int courseId ,int currentPage=1 ,int take =5 );
+
 
     }
 }

@@ -26,9 +26,12 @@ namespace TopLearn.Web.Controllers
 
 
 
-        public IActionResult ShowCourseComments(int id)
+        public IActionResult ShowCourseComments(int id, int currentPage = 1, int take = 5)
         {
-            var model = _courseCommentService.ShowCourseCommentsByCourseId(id);
+            ViewData["courseId"] = id;
+            ViewData["currentPage"] = currentPage;
+
+            var model = _courseCommentService.ShowCourseCommentsByCourseId(id, currentPage, take);
             return View(model);
         }
 
